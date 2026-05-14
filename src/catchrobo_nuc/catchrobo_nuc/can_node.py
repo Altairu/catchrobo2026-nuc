@@ -84,6 +84,8 @@ class CanNode(Node):
         # サブスクライバー
         self.create_subscription(String, '/catchrobo/module_cmd', self._on_module_cmd, 10)
         self.create_subscription(String, '/catchrobo/set_ports', self._on_set_ports, 10)
+        self.create_subscription(String, '/catchrobo/serial_status', self._on_serial_status, 10)
+        self.known_motor_port = ''
 
         # タイマー
         self.create_timer(0.010, self._timer_10ms)   # MDD送信 (100Hz)
@@ -119,6 +121,17 @@ class CanNode(Node):
             self._connect(can_port)
         except Exception as e:
             self.get_logger().error(f'set_ports 解析エラー: {e}')
+
+    def _on_serial_status(self, msg: String):
+        """モーターノードのステータスを受信し、使用中のポートを把握する"""
+        try:
+            data = json.loads(msg.data)
+            if data.get('connected'):
+                self.known_motor_port = data.get('port', '')
+            else:
+                self.known_motor_port = ''
+        except Exception:
+            pass
 
     def _on_module_cmd(self, msg: String):
         """PCからのモジュール操作コマンドを受信して状態を更新する"""
@@ -328,11 +341,17 @@ class CanNode(Node):
 
     def _auto_scan_loop(self):
         """未接続の間、1秒ごとにttyACM*をスキャンしてCANデバイスを自動検出するループ"""
-        self.get_logger().info('CAN自動スキャン開始...')
+        self.get_logger().info('CAN自動スキャン待機中... (モーター通信の確立待ち)')
         while rclpy.ok():
             if self.is_connected:
                 time.sleep(1.0)
                 continue
+            
+            # モーター側が接続されるまでCANのスキャンは保留する
+            if not self.known_motor_port:
+                time.sleep(1.0)
+                continue
+
             port = self._detect_can_port()
             if port:
                 self._connect(port)
@@ -353,6 +372,11 @@ class CanNode(Node):
         """
         import glob
         candidates = sorted(glob.glob('/dev/ttyACM*'))
+        
+        # モーターノードが既に使用しているポートはスキャン対象から除外する
+        if self.known_motor_port in candidates:
+            candidates.remove(self.known_motor_port)
+            
         if not candidates:
             return ''
         self.get_logger().info(f'スキャン対象ポート: {candidates}')

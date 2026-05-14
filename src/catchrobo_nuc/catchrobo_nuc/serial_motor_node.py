@@ -64,7 +64,11 @@ class SerialMotorNode(Node):
         self._recv_thread = threading.Thread(target=self._receive_loop, daemon=True)
         self._recv_thread.start()
 
-        self.get_logger().info('シリアルモーターノード 起動完了')
+        # 自動検出スレッド
+        self._auto_scan_thread = threading.Thread(target=self._auto_scan_loop, daemon=True)
+        self._auto_scan_thread.start()
+
+        self.get_logger().info('シリアルモーターノード 起動完了 (自動スキャン開始)')
 
     # ─────────────────────────────────────────────────
     # ROS2 コールバック
@@ -210,6 +214,43 @@ class SerialMotorNode(Node):
     # ─────────────────────────────────────────────────
     # シリアルポート接続管理
     # ─────────────────────────────────────────────────
+
+    def _auto_scan_loop(self):
+        """未接続の間、1秒ごとにttyACM*をスキャンしてモーターマイコンを自動検出する"""
+        import glob
+        self.get_logger().info('モータースキャン開始...')
+        while rclpy.ok():
+            if self.is_connected:
+                time.sleep(1.0)
+                continue
+            
+            candidates = sorted(glob.glob('/dev/ttyACM*'))
+            found_port = ''
+            for port in candidates:
+                try:
+                    s = serial.Serial(port, 115200, timeout=0.2)
+                    # ダミーコマンド（目標値0）を送信して応答を待つ
+                    payload = struct.pack('<BBhhhhhb', 0xAA, 0x55, 0, 0, 0, 0, 0, 0)
+                    crc = self._calc_crc16(payload)
+                    packet = payload + struct.pack('<HB', crc, 0x0A)
+                    s.write(packet)
+                    
+                    rx = s.read(64)
+                    s.close()
+                    
+                    if b'\xBB\x66' in rx:
+                        found_port = port
+                        break
+                except Exception as e:
+                    pass
+            
+            if found_port:
+                self.get_logger().info(f'モーターマイコン検出: {found_port}')
+                self._connect(found_port)
+            else:
+                self.get_logger().warn('モーターデバイスが見つかりません。1秒後に再スキャンします...', throttle_duration_sec=5.0)
+            
+            time.sleep(1.0)
 
     def _connect(self, port: str):
         """シリアルポートに接続する"""
