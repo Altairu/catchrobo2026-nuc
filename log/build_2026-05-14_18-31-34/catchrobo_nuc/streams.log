@@ -1,0 +1,32 @@
+[1.118s] Invoking command in '/home/altair/catchrobo2026-nuc/src/catchrobo_nuc': PYTHONPATH=/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/catchrobo_nuc build --build-base /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build install --record /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/install.log --single-version-externally-managed install_data
+[1.274s] /home/altair/.local/lib/python3.10/site-packages/setuptools/_distutils/dist.py:261: UserWarning: Unknown distribution option: 'tests_require'
+[1.274s]   warnings.warn(msg)
+[1.509s] running egg_info
+[1.531s] writing ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/PKG-INFO
+[1.532s] writing dependency_links to ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/dependency_links.txt
+[1.532s] writing entry points to ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/entry_points.txt
+[1.532s] writing requirements to ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/requires.txt
+[1.533s] writing top-level names to ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/top_level.txt
+[1.579s] reading manifest file '../../build/catchrobo_nuc/catchrobo_nuc.egg-info/SOURCES.txt'
+[1.580s] writing manifest file '../../build/catchrobo_nuc/catchrobo_nuc.egg-info/SOURCES.txt'
+[1.580s] running build
+[1.580s] running build_py
+[1.581s] copying catchrobo_nuc/serial_motor_node.py -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc
+[1.581s] copying catchrobo_nuc/can_node.py -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc
+[1.581s] copying catchrobo_nuc/debug_node.py -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc
+[1.581s] copying catchrobo_nuc/__init__.py -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc
+[1.582s] running install
+[1.586s] running install_lib
+[1.610s] running install_data
+[1.610s] copying resource/catchrobo_nuc -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/ament_index/resource_index/packages
+[1.610s] copying package.xml -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/catchrobo_nuc
+[1.611s] copying launch/nuc.launch.py -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/catchrobo_nuc/launch
+[1.611s] running install_egg_info
+[1.634s] removing '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc-0.1.0-py3.10.egg-info' (and everything under it)
+[1.634s] Copying ../../build/catchrobo_nuc/catchrobo_nuc.egg-info to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc-0.1.0-py3.10.egg-info
+[1.635s] running install_scripts
+[1.809s] Installing can_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc
+[1.809s] Installing debug_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc
+[1.809s] Installing serial_motor_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc
+[1.810s] writing list of installed files to '/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/install.log'
+[1.886s] Invoked command in '/home/altair/catchrobo2026-nuc/src/catchrobo_nuc' returned '0': PYTHONPATH=/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/catchrobo_nuc build --build-base /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build install --record /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/install.log --single-version-externally-managed install_data

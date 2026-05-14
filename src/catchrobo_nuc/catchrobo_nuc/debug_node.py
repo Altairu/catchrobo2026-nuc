@@ -247,8 +247,11 @@ class DebugNode(Node):
 
             # ── フッター ──────────────────────────────
             footer = ' [q] Quit '
-            stdscr.addstr(h - 1, 0, '=' * w, COL_HEADER)
-            stdscr.addstr(h - 1, 2, footer, COL_NORM)
+            try:
+                stdscr.addstr(h - 1, 0, '=' * (w - 1), COL_HEADER)
+                stdscr.addstr(h - 1, 2, footer, COL_NORM)
+            except curses.error:
+                pass
 
             stdscr.refresh()
             time.sleep(0.1)   # 10Hz描画
