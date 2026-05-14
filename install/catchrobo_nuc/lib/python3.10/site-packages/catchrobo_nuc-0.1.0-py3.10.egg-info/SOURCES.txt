@@ -12,4 +12,5 @@ catchrobo_nuc/__init__.py
 catchrobo_nuc/can_node.py
 catchrobo_nuc/debug_node.py
 catchrobo_nuc/serial_motor_node.py
+launch/nuc.launch.py
 resource/catchrobo_nuc

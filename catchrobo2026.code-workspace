@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "catchrobo2026-nuc",
+			"path": "."
+		},
+		{
+			"name": "catchrobo2026-pc",
+			"path": "../catchrobo2026-pc"
+		},
+		{
+			"name": "Altair_module_system_control",
+			"path": "../Documents/Altair_module_system_control"
+		}
+	],
+	"settings": {}
+}

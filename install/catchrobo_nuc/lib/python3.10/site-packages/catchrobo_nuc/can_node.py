@@ -94,7 +94,11 @@ class CanNode(Node):
         self._read_thread = threading.Thread(target=self._read_loop, daemon=True)
         self._read_thread.start()
 
-        self.get_logger().info('CANノード 起動完了')
+        # 起動時に自動でCANデバイスを検出して接続する
+        self._auto_scan_thread = threading.Thread(target=self._auto_scan_loop, daemon=True)
+        self._auto_scan_thread.start()
+
+        self.get_logger().info('CANノード 起動完了 (CAN自動検出を開始)')
 
     # ─────────────────────────────────────────────────
     # ROS2 コールバック
@@ -321,6 +325,63 @@ class CanNode(Node):
     # ─────────────────────────────────────────────────
     # シリアルポート接続管理
     # ─────────────────────────────────────────────────
+
+    def _auto_scan_loop(self):
+        """未接続の間、1秒ごとにttyACM*をスキャンしてCANデバイスを自動検出するループ"""
+        self.get_logger().info('CAN自動スキャン開始...')
+        while rclpy.ok():
+            if self.is_connected:
+                time.sleep(1.0)
+                continue
+            port = self._detect_can_port()
+            if port:
+                self._connect(port)
+            else:
+                self.get_logger().warn(
+                    'CANデバイスが見つかりません。1秒後に再スキャンします...', throttle_duration_sec=5.0)
+            time.sleep(1.0)
+
+    def _detect_can_port(self) -> str:
+        """ttyACM*ポートをすべて試してslcanデバイスを自動判定する。
+
+        判定方法:
+          1. ポートを115200bpsで開く
+          2. 'C\\r' (チャンネルクローズ) を送って既存状態をリセット
+          3. 'S8\\r' (1Mbps設定) を送る
+          4. 'O\\r' (チャンネルオープン) を送って応答を確認
+          5. 応答バイトが存在すればslcanデバイスと判定
+        """
+        import glob
+        candidates = sorted(glob.glob('/dev/ttyACM*'))
+        if not candidates:
+            return ''
+        self.get_logger().info(f'スキャン対象ポート: {candidates}')
+        for port in candidates:
+            try:
+                s = serial.Serial(port, 115200, timeout=0.3)
+                s.reset_input_buffer()
+                # リセット
+                s.write(b'C\r')
+                time.sleep(0.1)
+                s.reset_input_buffer()
+                # ボーレート設定
+                s.write(b'S8\r')
+                time.sleep(0.1)
+                # オープンして応答を確認
+                s.write(b'O\r')
+                time.sleep(0.15)
+                resp = s.read(s.in_waiting or 1)
+                s.close()
+                if resp:  # 何らかの応答があればslcanデバイスとみなす
+                    self.get_logger().info(
+                        f'slcanデバイス検出: {port} (応答={resp!r})')
+                    return port
+                else:
+                    self.get_logger().info(
+                        f'{port} は応答なし (マイコン側シリアルと判定)')
+            except Exception as e:
+                self.get_logger().warn(f'{port} スキャン失敗: {e}')
+        return ''
 
     def _connect(self, port: str):
         """slcanデバイスに接続する"""
