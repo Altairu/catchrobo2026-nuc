@@ -136,9 +136,14 @@ class SerialMotorNode(Node):
                 time.sleep(0.05)
                 continue
             try:
+                waiting = 0
                 with self.serial_lock:
-                    chunk = self.ser.read(64)
-                if chunk:
+                    if self.ser.is_open:
+                        waiting = self.ser.in_waiting
+                
+                if waiting > 0:
+                    with self.serial_lock:
+                        chunk = self.ser.read(waiting)
                     rx_buf.extend(chunk)
                     # 16バイトパケットを探す
                     while len(rx_buf) >= 16:
@@ -152,11 +157,12 @@ class SerialMotorNode(Node):
                             pkt = bytes(rx_buf[:16])
                             del rx_buf[:16]
                             self._parse_feedback(pkt)
+                else:
+                    time.sleep(0.002)
             except Exception as e:
                 self.error_count += 1
                 self.is_connected = False
                 self.get_logger().error(f'シリアル受信エラー: {e}')
-            time.sleep(0.005)
 
     def _parse_feedback(self, pkt: bytes):
         """受信パケットを解析してフィードバック値を更新する"""

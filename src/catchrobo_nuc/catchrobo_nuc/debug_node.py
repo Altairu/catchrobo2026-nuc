@@ -179,7 +179,7 @@ class DebugNode(Node):
             for i, name in enumerate(MOTOR_NAMES):
                 ang = fb_angles[i] if i < len(fb_angles) else 0.0
                 rpm = fb_rpms[i]   if i < len(fb_rpms)   else '-'
-                rpm_str = f'{rpm:+d}' if isinstance(rpm, (int, float)) else '-'
+                rpm_str = f'{int(rpm):+d}' if isinstance(rpm, (int, float)) else '-'
                 stdscr.addstr(row, 3, f'  {name:<6}', COL_LABEL)
                 stdscr.addstr(row, 9, f'{ang:>+10.1f}°', COL_VALUE)
                 stdscr.addstr(row, 21, f'{rpm_str:>8}', COL_VALUE)
