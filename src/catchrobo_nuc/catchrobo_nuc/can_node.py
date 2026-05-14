@@ -274,13 +274,20 @@ class CanNode(Node):
                 time.sleep(0.05)
                 continue
             try:
+                waiting = 0
                 with self.serial_lock:
-                    chunk = self.ser.read(64)
-                if chunk:
+                    if self.ser.is_open:
+                        waiting = self.ser.in_waiting
+                
+                if waiting > 0:
+                    with self.serial_lock:
+                        chunk = self.ser.read(waiting)
                     buf += chunk.decode('ascii', errors='ignore')
                     while '\r' in buf:
                         line, buf = buf.split('\r', 1)
                         self._parse_slcan_line(line.strip())
+                else:
+                    time.sleep(0.002)
             except Exception as e:
                 self.error_count += 1
                 self.is_connected = False
