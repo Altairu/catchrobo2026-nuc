@@ -1,0 +1,34 @@
+[1.139s] Invoking command in '/home/altair/catchrobo2026-nuc/src/catchrobo_nuc': PYTHONPATH=/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/catchrobo_nuc build --build-base /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build install --record /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/install.log --single-version-externally-managed install_data
+[1.502s] running egg_info
+[1.522s] writing ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/PKG-INFO
+[1.523s] writing dependency_links to ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/dependency_links.txt
+[1.523s] writing entry points to ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/entry_points.txt
+[1.523s] writing requirements to ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/requires.txt
+[1.523s] writing top-level names to ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/top_level.txt
+[1.565s] reading manifest file '../../build/catchrobo_nuc/catchrobo_nuc.egg-info/SOURCES.txt'
+[1.566s] writing manifest file '../../build/catchrobo_nuc/catchrobo_nuc.egg-info/SOURCES.txt'
+[1.566s] running build
+[1.566s] running build_py
+[1.567s] copying catchrobo_nuc/serial_motor_node.py -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc
+[1.567s] copying catchrobo_nuc/can_node.py -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc
+[1.567s] copying catchrobo_nuc/debug_node.py -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc
+[1.567s] copying catchrobo_nuc/__init__.py -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc
+[1.567s] running install
+[1.571s] running install_lib
+[1.592s] copying /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/can_node.py -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc
+[1.592s] copying /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/debug_node.py -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc
+[1.592s] byte-compiling /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc/can_node.py to can_node.cpython-310.pyc
+[1.596s] byte-compiling /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc/debug_node.py to debug_node.cpython-310.pyc
+[1.597s] running install_data
+[1.597s] copying resource/catchrobo_nuc -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/ament_index/resource_index/packages
+[1.597s] copying package.xml -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/catchrobo_nuc
+[1.598s] copying launch/nuc.launch.py -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/catchrobo_nuc/launch
+[1.598s] running install_egg_info
+[1.619s] removing '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc-0.1.0-py3.10.egg-info' (and everything under it)
+[1.619s] Copying ../../build/catchrobo_nuc/catchrobo_nuc.egg-info to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc-0.1.0-py3.10.egg-info
+[1.620s] running install_scripts
+[1.782s] Installing can_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc
+[1.782s] Installing debug_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc
+[1.783s] Installing serial_motor_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc
+[1.783s] writing list of installed files to '/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/install.log'
+[1.857s] Invoked command in '/home/altair/catchrobo2026-nuc/src/catchrobo_nuc' returned '0': PYTHONPATH=/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/catchrobo_nuc build --build-base /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build install --record /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/install.log --single-version-externally-managed install_data

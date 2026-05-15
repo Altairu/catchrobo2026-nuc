@@ -89,8 +89,9 @@ class CanNode(Node):
 
         # タイマー
         self.create_timer(0.010, self._timer_10ms)   # MDD送信 (100Hz)
-        self.create_timer(0.100, self._timer_100ms)  # Solenoid送信 (10Hz)
-        self.create_timer(1.000, self._timer_1s)     # ステータス送信 + ポートスキャン
+        self.create_timer(0.010, self._timer_100ms)  # Solenoid送信 (100Hz)
+        self.create_timer(0.010, self._publish_can_status)  # CANステータス送信 (100Hz)
+        self.create_timer(1.000, self._publish_available_ports)  # ポートスキャン (1Hz)
 
         # CAN受信スレッド
         self._read_thread = threading.Thread(target=self._read_loop, daemon=True)
@@ -197,17 +198,12 @@ class CanNode(Node):
             self._send_mdd_target(m)
 
     def _timer_100ms(self):
-        """10Hz: Solenoid送信ループ"""
+        """100Hz: Solenoid送信ループ"""
         if not self.is_connected:
             return
         for sv in (self.sv1, self.sv2):
             if sv['tx_enabled']:
                 self._send_solenoid(sv)
-
-    def _timer_1s(self):
-        """1Hz: ステータスとポートリスト公開"""
-        self._publish_can_status()
-        self._publish_available_ports()
 
     # ─────────────────────────────────────────────────
     # CAN フレーム送受信
@@ -270,28 +266,26 @@ class CanNode(Node):
         """CANフレーム受信ループ (別スレッド)"""
         buf = ''
         while rclpy.ok():
-            if not self.is_connected or not self.ser:
+            ser = self.ser
+            if not self.is_connected or not ser or not ser.is_open:
                 time.sleep(0.05)
                 continue
             try:
-                waiting = 0
-                with self.serial_lock:
-                    if self.ser.is_open:
-                        waiting = self.ser.in_waiting
+                # in_waitingを確認し、データがあればまとめて、なければ1バイトのブロッキングリードを行う
+                # timeoutが設定されているため（_connect内でtimeout=0.05）、データが来なければ定期的に抜ける
+                waiting = ser.in_waiting
+                chunk = ser.read(waiting if waiting > 0 else 1)
                 
-                if waiting > 0:
-                    with self.serial_lock:
-                        chunk = self.ser.read(waiting)
+                if chunk:
                     buf += chunk.decode('ascii', errors='ignore')
                     while '\r' in buf:
                         line, buf = buf.split('\r', 1)
                         self._parse_slcan_line(line.strip())
-                else:
-                    time.sleep(0.002)
             except Exception as e:
-                self.error_count += 1
-                self.is_connected = False
-                self.get_logger().error(f'CAN受信エラー: {e}')
+                if self.is_connected:
+                    self.error_count += 1
+                    self.is_connected = False
+                    self.get_logger().error(f'CAN受信エラー: {e}')
 
     def _parse_slcan_line(self, line: str):
         """slcan受信フレームを解析する"""

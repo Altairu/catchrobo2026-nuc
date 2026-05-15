@@ -138,7 +138,7 @@ catchrobo2026-nuc/
 | ROS2 | Humble Hawksbill |
 | Python | 3.10 |
 | pyserial | `pip3 install pyserial` |
-| xterm | `sudo apt install xterm` (デバッグTUI用) |
+| WezTerm | [インストール済み] (デバッグTUI用) |
 
 ---
 
@@ -160,6 +160,8 @@ source /opt/ros/humble/setup.bash
 source install/setup.bash
 ROS_DOMAIN_ID=0 ros2 launch catchrobo_nuc nuc.launch.py
 ```
+
+※ `debug_node` は自動的に WezTerm の別ウィンドウ/タブで起動します。
 
 ### ノードを個別に起動する場合
 

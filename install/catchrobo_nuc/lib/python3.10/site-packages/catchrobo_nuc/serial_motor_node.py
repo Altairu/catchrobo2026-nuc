@@ -57,8 +57,8 @@ class SerialMotorNode(Node):
 
         # 送信タイマー (50Hz)
         self.create_timer(0.020, self._timer_send)
-        # ステータス送信タイマー (1Hz)
-        self.create_timer(1.000, self._timer_status)
+        # ステータス送信タイマー (100Hz)
+        self.create_timer(0.010, self._timer_status)
 
         # 受信スレッド
         self._recv_thread = threading.Thread(target=self._receive_loop, daemon=True)
@@ -132,18 +132,16 @@ class SerialMotorNode(Node):
         """シリアル受信ループ (別スレッド)"""
         rx_buf = bytearray()
         while rclpy.ok():
-            if not self.is_connected or not self.ser:
+            ser = self.ser
+            if not self.is_connected or not ser or not ser.is_open:
                 time.sleep(0.05)
                 continue
             try:
-                waiting = 0
-                with self.serial_lock:
-                    if self.ser.is_open:
-                        waiting = self.ser.in_waiting
+                # in_waitingを確認し、データがあればまとめて、なければ1バイトのブロッキングリードを行う
+                waiting = ser.in_waiting
+                chunk = ser.read(waiting if waiting > 0 else 1)
                 
-                if waiting > 0:
-                    with self.serial_lock:
-                        chunk = self.ser.read(waiting)
+                if chunk:
                     rx_buf.extend(chunk)
                     # 16バイトパケットを探す
                     while len(rx_buf) >= 16:
@@ -157,12 +155,11 @@ class SerialMotorNode(Node):
                             pkt = bytes(rx_buf[:16])
                             del rx_buf[:16]
                             self._parse_feedback(pkt)
-                else:
-                    time.sleep(0.002)
             except Exception as e:
-                self.error_count += 1
-                self.is_connected = False
-                self.get_logger().error(f'シリアル受信エラー: {e}')
+                if self.is_connected:
+                    self.error_count += 1
+                    self.is_connected = False
+                    self.get_logger().error(f'シリアル受信エラー: {e}')
 
     def _parse_feedback(self, pkt: bytes):
         """受信パケットを解析してフィードバック値を更新する"""
@@ -188,7 +185,7 @@ class SerialMotorNode(Node):
         self.pub_motor_fb.publish(msg)
 
     def _timer_status(self):
-        """1Hz: シリアルステータス送信"""
+        """100Hz: シリアルステータス送信"""
         status = {
             'connected': self.is_connected,
             'port': self.serial_port_name,

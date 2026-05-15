@@ -19,7 +19,6 @@ setup(
     maintainer_email='altair@example.com',
     description='Catchrobo 2026 NUC側パッケージ',
     license='MIT',
-    tests_require=['pytest'],
     entry_points={
         'console_scripts': [
             'can_node = catchrobo_nuc.can_node:main',
