@@ -20,7 +20,7 @@ class MotorControlApp:
         self.is_running = False
 
         # フィードバックデータ
-        self.fb_angles = [0.0] * 5  # RM1, RM2, LM1, LM2, SM1
+        self.fb_angles = [0.0] * 6  # RM1, RM2, LM1, LM2, SM1, LM3
         self.fb_rpm    = [0, 0]     # RM1, RM2
 
         # モーター設定（名前: range, step）
@@ -30,6 +30,7 @@ class MotorControlApp:
             "LM1": {"range": (-20.0, 30.0),  "step": 0.5, "val": tk.DoubleVar(value=0.0)},
             "LM2": {"range": (-10.0, 20.0),  "step": 0.5, "val": tk.DoubleVar(value=0.0)},
             "SM1": {"range": (-90.0, 90.0),  "step": 1.0, "val": tk.DoubleVar(value=0.0)},
+            "LM3": {"range": (-10.0, 20.0),  "step": 0.5, "val": tk.DoubleVar(value=0.0)},
         }
 
         self._sliders = {}
@@ -137,7 +138,7 @@ class MotorControlApp:
         fr_fb = ttk.LabelFrame(self.root, text="フィードバック (MCU→PC)", padding=4)
         fr_fb.pack(fill="x", padx=8, pady=2)
 
-        motor_names = ["RM1", "RM2", "LM1", "LM2", "SM1"]
+        motor_names = ["RM1", "RM2", "LM1", "LM2", "SM1", "LM3"]
         self.fb_ang_labels = {}
         self.fb_rpm_labels = {}
 
@@ -266,10 +267,11 @@ class MotorControlApp:
                     lm1  = int(self.motors["LM1"]["val"].get() * 10)
                     lm2  = int(self.motors["LM2"]["val"].get() * 10)
                     sm1  = int(self.motors["SM1"]["val"].get() * 10)
+                    lm3  = int(self.motors["LM3"]["val"].get() * 10)
                     mode = self.mode_var.get()
 
-                    payload = struct.pack('<BBhhhhhb', 0xAA, 0x55,
-                                         rm1, rm2, lm1, lm2, sm1, mode)
+                    payload = struct.pack('<BBhhhhhhb', 0xAA, 0x55,
+                                         rm1, rm2, lm1, lm2, sm1, lm3, mode)
                     crc    = self.calc_crc16(payload)
                     packet = payload + struct.pack('<HB', crc, 0x0A)
                     self.serial_port.write(packet)
@@ -288,16 +290,16 @@ class MotorControlApp:
                     chunk = self.serial_port.read(64)
                     if chunk:
                         rx_buf.extend(chunk)
-                        while len(rx_buf) >= 16:
+                        while len(rx_buf) >= 18:
                             idx = rx_buf.find(b'\xBB\x66')
                             if idx == -1:
                                 rx_buf.clear()
                                 break
                             if idx > 0:
                                 del rx_buf[:idx]
-                            if len(rx_buf) >= 16:
-                                pkt = bytes(rx_buf[:16])
-                                del rx_buf[:16]
+                            if len(rx_buf) >= 18:
+                                pkt = bytes(rx_buf[:18])
+                                del rx_buf[:18]
                                 self.parse_feedback(pkt)
                 except Exception as e:
                     print(f"受信エラー: {e}")
@@ -306,10 +308,10 @@ class MotorControlApp:
     def parse_feedback(self, pkt):
         if pkt[0] != 0xBB or pkt[1] != 0x66:
             return
-        names  = ["RM1", "RM2", "LM1", "LM2", "SM1"]
-        angles = [struct.unpack_from('<h', pkt, 2 + i*2)[0] / 10.0 for i in range(5)]
-        rpm1   = struct.unpack_from('<h', pkt, 12)[0]
-        rpm2   = struct.unpack_from('<h', pkt, 14)[0]
+        names  = ["RM1", "RM2", "LM1", "LM2", "SM1", "LM3"]
+        angles = [struct.unpack_from('<h', pkt, 2 + i*2)[0] / 10.0 for i in range(6)]
+        rpm1   = struct.unpack_from('<h', pkt, 14)[0]
+        rpm2   = struct.unpack_from('<h', pkt, 16)[0]
         rpms   = {"RM1": rpm1, "RM2": rpm2}
 
         def update_ui():

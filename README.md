@@ -29,68 +29,68 @@ catchrobo2026-nuc/
 
 ### 1. `can_node` — USB-CAN 通信ノード
 
-| 項目 | 内容 |
-|---|---|
-| 通信方式 | slcan プロトコル (USB-CANアダプタ) |
-| 送信レート | 100Hz (MDD) / 10Hz (Solenoid) |
-| 接続方法 | PCのGUIからポートを指定して動的接続 |
+| 項目       | 内容                                |
+| ---------- | ----------------------------------- |
+| 通信方式   | slcan プロトコル (USB-CANアダプタ)  |
+| 送信レート | 100Hz (MDD) / 10Hz (Solenoid)       |
+| 接続方法   | PCのGUIからポートを指定して動的接続 |
 
 **対象モジュール:**
 
-| 名前 | 種類 | Base CAN ID |
-|---|---|---|
+| 名前 | 種類                      | Base CAN ID   |
+| ---- | ------------------------- | ------------- |
 | MDD1 | Motor Driver Driver (4ch) | `0x200` (512) |
-| SV_1 | Solenoid Valve (12ch) | `0x300` (768) |
-| SV_2 | Solenoid Valve (12ch) | `0x301` (769) |
+| SV_1 | Solenoid Valve (12ch)     | `0x300` (768) |
+| SV_2 | Solenoid Valve (12ch)     | `0x301` (769) |
 
 **CAN フレーム仕様 (MDD1 / BaseID=0x200):**
 
-| CAN ID | 方向 | 内容 |
-|---|---|---|
-| `0x200`~`0x203` | TX | モーターごとのPIDパラメータ (8byte) |
-| `0x210` | TX | 動作モード (4byte) |
-| `0x220` | TX | 目標値 (int16×4, 8byte) |
-| `0x230` | RX | ステータス [SW×4, Err, AppMode] |
-| `0x240` | RX | エンコーダ角度 (int16×4, 単位: 0.1deg) |
-| `0x250` | RX | エンコーダ角速度 (int16×4, 単位: 0.01rps) |
+| CAN ID          | 方向 | 内容                                      |
+| --------------- | ---- | ----------------------------------------- |
+| `0x200`~`0x203` | TX   | モーターごとのPIDパラメータ (8byte)       |
+| `0x210`         | TX   | 動作モード (4byte)                        |
+| `0x220`         | TX   | 目標値 (int16×4, 8byte)                   |
+| `0x230`         | RX   | ステータス [SW×4, Err, AppMode]           |
+| `0x240`         | RX   | エンコーダ角度 (int16×4, 単位: 0.1deg)    |
+| `0x250`         | RX   | エンコーダ角速度 (int16×4, 単位: 0.01rps) |
 
 **Solenoid (SV_1=0x300, SV_2=0x301):**
 
-| CAN ID | 方向 | 内容 |
-|---|---|---|
-| `0x300` / `0x301` | TX | バルブ状態ビットフィールド (uint16 LE, 2byte) |
+| CAN ID            | 方向 | 内容                                          |
+| ----------------- | ---- | --------------------------------------------- |
+| `0x300` / `0x301` | TX   | バルブ状態ビットフィールド (uint16 LE, 2byte) |
 
 ---
 
 ### 2. `serial_motor_node` — ロボマスモーター シリアルノード
 
-| 項目 | 内容 |
-|---|---|
-| 通信方式 | UART (115200bps) |
-| 送信レート | 50Hz |
-| 対象軸 | RM1 / RM2 / LM1 / LM2 / SM1 (5軸) |
+| 項目       | 内容                                    |
+| ---------- | --------------------------------------- |
+| 通信方式   | UART (115200bps)                        |
+| 送信レート | 50Hz                                    |
+| 対象軸     | RM1 / RM2 / LM1 / LM2 / SM1 / LM3 (6軸) |
 
-**送信パケット (15byte):**
+**送信パケット (18byte):**
 
 ```
-[0xAA][0x55][RM1 int16LE][RM2 int16LE][LM1 int16LE][LM2 int16LE][SM1 int16LE][Mode int8][CRC16 LE][0x0A]
+[0xAA][0x55][RM1 int16LE][RM2 int16LE][LM1 int16LE][LM2 int16LE][SM1 int16LE][LM3 int16LE][Mode int8][CRC16 LE][0x0A]
 ```
 
 - 角度値は `degree × 10` の整数で送信
-- CRC16 は Modbus 方式
+- CRC16 は Modbus 方式（先頭15バイトに対して計算）
 
-**受信パケット (16byte):**
+**受信パケット (18byte):**
 
 ```
-[0xBB][0x66][Ang1~5 int16LE×5][RPM1 int16LE][RPM2 int16LE]
+[0xBB][0x66][Ang1~6 int16LE×6][RPM1 int16LE][RPM2 int16LE]
 ```
 
 **制御モード:**
 
-| 値 | モード |
-|---|---|
-| `0` | 停止 |
-| `1` | PID 制御 |
+| 値  | モード           |
+| --- | ---------------- |
+| `0` | 停止             |
+| `1` | PID 制御         |
 | `2` | 同定（開ループ） |
 
 ---
@@ -112,33 +112,33 @@ catchrobo2026-nuc/
 
 ### Subscribe (受信)
 
-| トピック | 型 | 送信元 | 内容 |
-|---|---|---|---|
-| `/catchrobo/motor_cmd` | `Float32MultiArray` | PC | 5軸目標値 [RM1..SM1] (degree) |
-| `/catchrobo/motor_mode` | `String` (JSON) | PC | 制御モード `{"mode": 0}` |
-| `/catchrobo/module_cmd` | `String` (JSON) | PC | MDD/Solenoid 操作コマンド |
-| `/catchrobo/set_ports` | `String` (JSON) | PC | `{"can_port":"...", "serial_port":"..."}` |
+| トピック                | 型                  | 送信元 | 内容                                      |
+| ----------------------- | ------------------- | ------ | ----------------------------------------- |
+| `/catchrobo/motor_cmd`  | `Float32MultiArray` | PC     | 5軸目標値 [RM1..SM1] (degree)             |
+| `/catchrobo/motor_mode` | `String` (JSON)     | PC     | 制御モード `{"mode": 0}`                  |
+| `/catchrobo/module_cmd` | `String` (JSON)     | PC     | MDD/Solenoid 操作コマンド                 |
+| `/catchrobo/set_ports`  | `String` (JSON)     | PC     | `{"can_port":"...", "serial_port":"..."}` |
 
 ### Publish (送信)
 
-| トピック | 型 | 受信先 | 内容 |
-|---|---|---|---|
-| `/catchrobo/motor_fb` | `Float32MultiArray` | PC | 角度×5 + RPM×2 |
-| `/catchrobo/can_status` | `String` (JSON) | PC/デバッグ | CANノード状態・統計 |
-| `/catchrobo/serial_status` | `String` (JSON) | PC/デバッグ | シリアルノード状態・統計 |
-| `/catchrobo/available_ports` | `String` (JSON) | PC | 利用可能シリアルポート一覧 |
+| トピック                     | 型                  | 受信先      | 内容                       |
+| ---------------------------- | ------------------- | ----------- | -------------------------- |
+| `/catchrobo/motor_fb`        | `Float32MultiArray` | PC          | 角度×5 + RPM×2             |
+| `/catchrobo/can_status`      | `String` (JSON)     | PC/デバッグ | CANノード状態・統計        |
+| `/catchrobo/serial_status`   | `String` (JSON)     | PC/デバッグ | シリアルノード状態・統計   |
+| `/catchrobo/available_ports` | `String` (JSON)     | PC          | 利用可能シリアルポート一覧 |
 
 ---
 
 ## 環境要件
 
-| 項目 | バージョン/内容 |
-|---|---|
-| OS | Ubuntu 22.04 |
-| ROS2 | Humble Hawksbill |
-| Python | 3.10 |
-| pyserial | `pip3 install pyserial` |
-| WezTerm | [インストール済み] (デバッグTUI用) |
+| 項目     | バージョン/内容                    |
+| -------- | ---------------------------------- |
+| OS       | Ubuntu 22.04                       |
+| ROS2     | Humble Hawksbill                   |
+| Python   | 3.10                               |
+| pyserial | `pip3 install pyserial`            |
+| WezTerm  | [インストール済み] (デバッグTUI用) |
 
 ---
 
