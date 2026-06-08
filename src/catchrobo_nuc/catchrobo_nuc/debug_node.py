@@ -170,6 +170,18 @@ class PCDebugNode(Node):
                         stdscr.addstr(row, 2, rps_str, curses.color_pair(4))
                         row += 1
 
+                # --- Servo1 (0x100) 目標角度表示 ---
+                if row < h - 4:
+                    servo1 = self.can_status.get('modules', {}).get('Servo1', {})
+                    ch = servo1.get('ch', [])
+                    if ch:
+                        row += 1
+                        stdscr.addstr(row, 0, "[ SERVO1 TARGET (0x100) ]", curses.color_pair(3) | curses.A_BOLD)
+                        row += 1
+                        ch_str = "  ".join([f"CH{i+1}:{v:>3d}deg" for i, v in enumerate(ch)])
+                        stdscr.addstr(row, 2, ch_str, curses.color_pair(4))
+                        row += 1
+
             stdscr.refresh()
             time.sleep(0.1)  # 10Hz更新
 

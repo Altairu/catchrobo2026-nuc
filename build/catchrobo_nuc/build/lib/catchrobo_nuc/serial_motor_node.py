@@ -3,8 +3,8 @@ serial_motor_node.py
 シリアル通信でロボマスモーターを制御するROS2ノード
 
 サンプルコード (motor_control_gui.py) のプロトコルをROS2ノードに移植。
-- 送信: 0xAA 0x55 + rm1 rm2 lm1 lm2 sm1(各int16 LE) + mode(int8) + CRC16 + 0x0A
-- 受信: 0xBB 0x66 + angles×5(int16 LE) + rpm×2(int16 LE)  計16バイト
+- 送信: 0xAA 0x55 + rm1 rm2 lm1 lm2 sm1 lm3(各int16 LE) + mode(int8) + CRC16 + 0x0A  計18バイト
+- 受信: 0xBB 0x66 + angles×6(int16 LE) + rpm×2(int16 LE)  計18バイト
 """
 
 import rclpy
@@ -29,12 +29,12 @@ class SerialMotorNode(Node):
         self.serial_port_name = ''
         self.serial_lock = threading.Lock()
 
-        # モーター状態 (RM1/RM2/LM1/LM2/SM1)
-        self.motor_targets = [0, 0, 0, 0, 0]   # ×10 に変換して送信
-        self.control_mode = 0                   # 0=停止 1=PID 2=開ループ
+        # モーター状態 (RM1/RM2/LM1/LM2/SM1/LM3)
+        self.motor_targets = [0, 0, 0, 0, 0, 0]   # ×10 に変換して送信
+        self.control_mode = 0                      # 0=停止 1=PID 2=開ループ
 
         # フィードバック値
-        self.fb_angles = [0.0] * 5
+        self.fb_angles = [0.0] * 6
         self.fb_rpm = [0, 0]
 
         # 統計
@@ -93,7 +93,7 @@ class SerialMotorNode(Node):
     def _on_motor_cmd(self, msg: Float32MultiArray):
         """PCからのモーター目標値を受信する (degree値、×10してint16へ変換)"""
         vals = list(msg.data)
-        for i in range(min(5, len(vals))):
+        for i in range(min(6, len(vals))):
             self.motor_targets[i] = int(vals[i] * 10)
 
     def _on_motor_mode(self, msg: String):
@@ -113,10 +113,10 @@ class SerialMotorNode(Node):
         if not self.is_connected or not self.ser:
             return
         try:
-            rm1, rm2, lm1, lm2, sm1 = self.motor_targets
-            payload = struct.pack('<BBhhhhhb',
+            rm1, rm2, lm1, lm2, sm1, lm3 = self.motor_targets
+            payload = struct.pack('<BBhhhhhhb',
                                   0xAA, 0x55,
-                                  rm1, rm2, lm1, lm2, sm1,
+                                  rm1, rm2, lm1, lm2, sm1, lm3,
                                   self.control_mode)
             crc = self._calc_crc16(payload)
             packet = payload + struct.pack('<HB', crc, 0x0A)
@@ -143,17 +143,17 @@ class SerialMotorNode(Node):
                 
                 if chunk:
                     rx_buf.extend(chunk)
-                    # 16バイトパケットを探す
-                    while len(rx_buf) >= 16:
+                    # 18バイトパケットを探す
+                    while len(rx_buf) >= 18:
                         idx = rx_buf.find(b'\xBB\x66')
                         if idx == -1:
                             rx_buf.clear()
                             break
                         if idx > 0:
                             del rx_buf[:idx]
-                        if len(rx_buf) >= 16:
-                            pkt = bytes(rx_buf[:16])
-                            del rx_buf[:16]
+                        if len(rx_buf) >= 18:
+                            pkt = bytes(rx_buf[:18])
+                            del rx_buf[:18]
                             self._parse_feedback(pkt)
             except Exception as e:
                 if self.is_connected:
@@ -163,16 +163,16 @@ class SerialMotorNode(Node):
 
     def _parse_feedback(self, pkt: bytes):
         """受信パケットを解析してフィードバック値を更新する"""
-        if len(pkt) < 16 or pkt[0] != 0xBB or pkt[1] != 0x66:
+        if len(pkt) < 18 or pkt[0] != 0xBB or pkt[1] != 0x66:
             return
-        names = ['RM1', 'RM2', 'LM1', 'LM2', 'SM1']
+        names = ['RM1', 'RM2', 'LM1', 'LM2', 'SM1', 'LM3']
         self.fb_angles = [
             struct.unpack_from('<h', pkt, 2 + i * 2)[0] / 10.0
-            for i in range(5)
+            for i in range(6)
         ]
         self.fb_rpm = [
-            struct.unpack_from('<h', pkt, 12)[0],
             struct.unpack_from('<h', pkt, 14)[0],
+            struct.unpack_from('<h', pkt, 16)[0],
         ]
         self.rx_count += 1
         self._publish_motor_fb()
@@ -233,7 +233,7 @@ class SerialMotorNode(Node):
                 try:
                     s = serial.Serial(port, 115200, timeout=0.2)
                     # ダミーコマンド（目標値0）を送信して応答を待つ
-                    payload = struct.pack('<BBhhhhhb', 0xAA, 0x55, 0, 0, 0, 0, 0, 0)
+                    payload = struct.pack('<BBhhhhhhb', 0xAA, 0x55, 0, 0, 0, 0, 0, 0, 0)
                     crc = self._calc_crc16(payload)
                     packet = payload + struct.pack('<HB', crc, 0x0A)
                     s.write(packet)

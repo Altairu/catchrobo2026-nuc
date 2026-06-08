@@ -1,0 +1,62 @@
+[0.000000] (-) TimerEvent: {}
+[0.000415] (catchrobo_nuc) JobQueued: {'identifier': 'catchrobo_nuc', 'dependencies': OrderedDict()}
+[0.000443] (catchrobo_nuc) JobStarted: {'identifier': 'catchrobo_nuc'}
+[0.099782] (-) TimerEvent: {}
+[0.200107] (-) TimerEvent: {}
+[0.300434] (-) TimerEvent: {}
+[0.400751] (-) TimerEvent: {}
+[0.501118] (-) TimerEvent: {}
+[0.601495] (-) TimerEvent: {}
+[0.701900] (-) TimerEvent: {}
+[0.802206] (-) TimerEvent: {}
+[0.902525] (-) TimerEvent: {}
+[1.002865] (-) TimerEvent: {}
+[1.103170] (-) TimerEvent: {}
+[1.203449] (-) TimerEvent: {}
+[1.303758] (-) TimerEvent: {}
+[1.404108] (-) TimerEvent: {}
+[1.416135] (catchrobo_nuc) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/catchrobo_nuc', 'build', '--build-base', '/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build', 'install', '--record', '/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/altair/catchrobo2026-nuc/src/catchrobo_nuc', 'env': {'GJS_DEBUG_TOPICS': 'JS ERROR;JS LOG', 'VSCODE_CWD': '/home/altair', 'LANGUAGE': 'ja_JP', 'USER': 'altair', 'ANTIGRAVITY_SOURCE_METADATA': '{"tool":{"conversationId":"ea0c25e8-e213-4b5c-bf3e-2fbc1467efc6","stepIndex":65,"toolCall":{"id":"sni6os2v","name":"run_command","argumentsJson":"{\\"CommandLine\\":\\"bash -c \\\\\\"source /opt/ros/humble/setup.bash \\\\u0026\\\\u0026 colcon build --packages-select catchrobo_nuc\\\\\\"\\",\\"Cwd\\":\\"/home/altair/catchrobo2026-nuc\\",\\"WaitMsBeforeAsync\\":5000,\\"toolAction\\":\\"NUC側のROS2パッケージビルド\\",\\"toolSummary\\":\\"NUC側のROS2パッケージビルド\\"}","thinkingSignature":"Eq4HCqsHAQw51sff6f47TRyCMzujrWqyvyUjq/pGDc8o5hHYkARBDult1BIlpcjDVdLNr8VBYYUE0E8Ee697EEqpdzyHHirHoFqoI/G4QaQY+X3RwxOKaCo5LHrwHTBPQanhu09y49cnnCAP+xH6ck1xvH9yItJ3ADu2ozLbncRbwd0gcnjsPL0kR/w05au/2SJTLvCaHDGwMzJkMbgTHz8TR3V9LhsCtA4rEdzstuWGg5/iUILVQY+nVLvRyqQtV454vxn2yyRBBrFAz+zp7iqisTtClWQpEH9+9wELmPrvKpqDpMI4COjr4U7H1MwO6kItsWoImO2Ur+3xkmEC5BAWBrTV9lxcC3MPjQk7wg8ANyhcstVH4FzdBi61pcw2v7qTKPPs7W9Vgr5DiUOswU7q6DCco4xkiPKFBjYFCWotp2In2qYar26r8FiNBQwPdqiBlVDOaicrdtlwNRXzyZQJ67o3I58s7HSyxsvncay/edwGRPXD5CmMP+HRnhr7t5fghdK+55bfEqInilyst0L7BByXM13gLcMgo8QLbnJ1HMbklr53NGCN5U4EPApNORBl4kLatgzPA8MBs1Ck+WRBdKbSIo5BM08zyKp2WKNK+1Unssw33+OABUjMnLYN7PzaHuu8flLrwHx8LFe1R9tOhH5cHfishEN5wU3ofGyqKxZGoUvibsCpoNHO53/y2+/kZ+58Xp25kUUdyTitE3kQhOI17jUL+2LuSemccKeOhNatzMX3cycl1JwL2MofWBYA5BOaP3gyRk5Xomba9g7FJlia9J98vYypjkfKX6ytFwdIJMmX6BsMDFrQ5UrYWI0RGfZivUfjyavl7iw6iJoUhRlhm1ghDRhzouBTYbJ9T2WfgudU1nNajAahiDhAw+OsBHOcvf0IaaEteimF6UeKPAa8+9/QzfzcN+W5FK6ybscJSwPq3zT9YNPDkrOgyzZzvoFbY/Vr2PMEMjBHKinLHlNPSu0HOoCv/GNG4dq6+nefWJGgYbEkHOAMLgUPaC8QyG3JDc6P2hC2UR5jKRrrchNvfmzn73Sbyt8EEYfcNsXCNdg4hV/v4ys3SWyCBhrIHL7V6uQhA34oSmxaR4B2hqJP+mygs8BSqPIdw7kT9cNGSbu9+m7x0zYgeQZk6UZXhbYex+6L8gwc9awWaqoeDB49Wnc286Lc8X6eTepvS4IQNYKBqqR6S3qlRzYbCrJr3eRDnELjmXIu4zGa2zjz9QRnKldVQWFSdddPxDkR","originalName":"run_command"}}}', 'VSCODE_NLS_CONFIG': '{"userLocale":"ja","osLocale":"ja-jp","resolvedLanguage":"en","defaultMessagesFile":"/usr/share/antigravity-ide/resources/app/out/nls.messages.json","locale":"ja","availableLanguages":{}}', 'XDG_SESSION_TYPE': 'x11', 'SHLVL': '0', 'LD_LIBRARY_PATH': '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/home/altair', 'CHROME_DESKTOP': 'antigravity-ide.desktop', 'DESKTOP_SESSION': 'ubuntu', 'VSCODE_IPC_HOOK': '/run/user/1000/vscode-f3071572-1.10-main.sock', 'GIO_LAUNCHED_DESKTOP_FILE': '/usr/share/applications/antigravity-ide.desktop', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'XDG_SEAT_PATH': '/org/freedesktop/DisplayManager/Seat0', 'PAGER': 'cat', 'MANAGERPID': '991', 'SYSTEMD_EXEC_PID': '47629', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'ANTIGRAVITY_AGENT': '1', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '48569', 'IM_CONFIG_PHASE': '1', 'ROS_DISTRO': 'humble', 'GTK_IM_MODULE': 'ibus', 'LOGNAME': 'altair', 'JOURNAL_STREAM': '8:90145', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'dumb', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'FC_FONTATIONS': '1', 'ROS_LOCALHOST_ONLY': '0', 'ANTIGRAVITY_EDITOR_APP_ROOT': '/usr/share/antigravity-ide/resources/app', 'PATH': '/opt/ros/humble/bin:/home/altair/.gemini/antigravity-ide/bin:/home/altair/.local/bin:/home/altair/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'SESSION_MANAGER': 'local/altair-HCAR5000-MI:@/tmp/.ICE-unix/47599,unix/altair-HCAR5000-MI:/tmp/.ICE-unix/47599', 'GDM_LANG': 'ja_JP', 'INVOCATION_ID': '36bd888d569a432ba6466619b8c3a192', 'XDG_SESSION_PATH': '/org/freedesktop/DisplayManager/Session0', 'XDG_MENU_PREFIX': 'gnome-', 'XDG_RUNTIME_DIR': '/run/user/1000', 'GDK_BACKEND': 'x11', 'DISPLAY': ':0', 'LANG': 'ja_JP.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/home/altair/.Xauthority', 'SSH_AGENT_LAUNCHER': 'gnome-keyring', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'XDG_GREETER_DATA_DIR': '/var/lib/lightdm-data/altair', 'AMENT_PREFIX_PATH': '/opt/ros/humble', 'SHELL': '/bin/bash', 'ANTIGRAVITY_LS_ADDRESS': 'localhost:36959', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'GJS_DEBUG_OUTPUT': 'stderr', 'QT_IM_MODULE': 'ibus', 'ANTIGRAVITY_TRAJECTORY_ID': '2cc81376-6774-4a5e-9428-daa2d5907682', 'PWD': '/home/altair/catchrobo2026-nuc/build/catchrobo_nuc', 'VSCODE_CLI': '1', 'LC_ALL': 'ja_JP.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'VSCODE_CODE_CACHE_PATH': '/home/altair/.config/Antigravity IDE/CachedData/4e2e10a9285aefbdcb898ae5e50dde45e9c7f505', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'ANTIGRAVITY_CSRF_TOKEN': '1e118cc3-7d73-4d37-bb89-57113794d1c9', 'ELECTRON_NO_ATTACH_CONSOLE': '1', 'VSCODE_PID': '48588'}, 'shell': False}
+[1.504261] (-) TimerEvent: {}
+[1.604736] (-) TimerEvent: {}
+[1.705222] (-) TimerEvent: {}
+[1.786816] (catchrobo_nuc) StdoutLine: {'line': b'running egg_info\n'}
+[1.805371] (-) TimerEvent: {}
+[1.807076] (catchrobo_nuc) StdoutLine: {'line': b'writing ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/PKG-INFO\n'}
+[1.807508] (catchrobo_nuc) StdoutLine: {'line': b'writing dependency_links to ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/dependency_links.txt\n'}
+[1.807693] (catchrobo_nuc) StdoutLine: {'line': b'writing entry points to ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/entry_points.txt\n'}
+[1.807844] (catchrobo_nuc) StdoutLine: {'line': b'writing requirements to ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/requires.txt\n'}
+[1.807982] (catchrobo_nuc) StdoutLine: {'line': b'writing top-level names to ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/top_level.txt\n'}
+[1.849781] (catchrobo_nuc) StdoutLine: {'line': b"reading manifest file '../../build/catchrobo_nuc/catchrobo_nuc.egg-info/SOURCES.txt'\n"}
+[1.851069] (catchrobo_nuc) StdoutLine: {'line': b"writing manifest file '../../build/catchrobo_nuc/catchrobo_nuc.egg-info/SOURCES.txt'\n"}
+[1.851282] (catchrobo_nuc) StdoutLine: {'line': b'running build\n'}
+[1.851349] (catchrobo_nuc) StdoutLine: {'line': b'running build_py\n'}
+[1.851478] (catchrobo_nuc) StdoutLine: {'line': b'copying catchrobo_nuc/serial_motor_node.py -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc\n'}
+[1.851770] (catchrobo_nuc) StdoutLine: {'line': b'copying catchrobo_nuc/can_node.py -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc\n'}
+[1.851956] (catchrobo_nuc) StdoutLine: {'line': b'copying catchrobo_nuc/debug_node.py -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc\n'}
+[1.852108] (catchrobo_nuc) StdoutLine: {'line': b'copying catchrobo_nuc/__init__.py -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc\n'}
+[1.852378] (catchrobo_nuc) StdoutLine: {'line': b'running install\n'}
+[1.856407] (catchrobo_nuc) StdoutLine: {'line': b'running install_lib\n'}
+[1.876427] (catchrobo_nuc) StdoutLine: {'line': b'copying /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/serial_motor_node.py -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc\n'}
+[1.876733] (catchrobo_nuc) StdoutLine: {'line': b'copying /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/can_node.py -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc\n'}
+[1.876786] (catchrobo_nuc) StdoutLine: {'line': b'copying /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/debug_node.py -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc\n'}
+[1.877152] (catchrobo_nuc) StdoutLine: {'line': b'byte-compiling /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc/serial_motor_node.py to serial_motor_node.cpython-310.pyc\n'}
+[1.879056] (catchrobo_nuc) StdoutLine: {'line': b'byte-compiling /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc/can_node.py to can_node.cpython-310.pyc\n'}
+[1.882306] (catchrobo_nuc) StdoutLine: {'line': b'byte-compiling /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc/debug_node.py to debug_node.cpython-310.pyc\n'}
+[1.884093] (catchrobo_nuc) StdoutLine: {'line': b'running install_data\n'}
+[1.884304] (catchrobo_nuc) StdoutLine: {'line': b'copying resource/catchrobo_nuc -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/ament_index/resource_index/packages\n'}
+[1.884509] (catchrobo_nuc) StdoutLine: {'line': b'copying package.xml -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/catchrobo_nuc\n'}
+[1.884677] (catchrobo_nuc) StdoutLine: {'line': b'copying launch/nuc.launch.py -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/catchrobo_nuc/launch\n'}
+[1.885028] (catchrobo_nuc) StdoutLine: {'line': b'running install_egg_info\n'}
+[1.905513] (-) TimerEvent: {}
+[1.906336] (catchrobo_nuc) StdoutLine: {'line': b"removing '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc-0.1.0-py3.10.egg-info' (and everything under it)\n"}
+[1.906821] (catchrobo_nuc) StdoutLine: {'line': b'Copying ../../build/catchrobo_nuc/catchrobo_nuc.egg-info to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc-0.1.0-py3.10.egg-info\n'}
+[1.907790] (catchrobo_nuc) StdoutLine: {'line': b'running install_scripts\n'}
+[2.005663] (-) TimerEvent: {}
+[2.070565] (catchrobo_nuc) StdoutLine: {'line': b'Installing can_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc\n'}
+[2.070977] (catchrobo_nuc) StdoutLine: {'line': b'Installing debug_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc\n'}
+[2.071234] (catchrobo_nuc) StdoutLine: {'line': b'Installing serial_motor_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc\n'}
+[2.071374] (catchrobo_nuc) StdoutLine: {'line': b"writing list of installed files to '/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/install.log'\n"}
+[2.105790] (-) TimerEvent: {}
+[2.142408] (catchrobo_nuc) CommandEnded: {'returncode': 0}
+[2.155318] (catchrobo_nuc) JobEnded: {'identifier': 'catchrobo_nuc', 'rc': 0}
+[2.156024] (-) EventReactorShutdown: {}

@@ -75,6 +75,14 @@ class CanNode(Node):
             'valves': 0,
         }
 
+        # Servo1: Servo Motor (BaseID=0x100)
+        self.servo = {
+            'base_id': 0x100,
+            'name': 'Servo1',
+            'tx_enabled': True,
+            'ch': [90, 90, 90, 90, 90, 90],
+        }
+
         # ─── ROS2 インタフェース ──────────────────────
 
         # パブリッシャー
@@ -147,6 +155,8 @@ class CanNode(Node):
                 self._handle_solenoid_cmd(self.sv1, action, data)
             elif mod_name == 'SV_2':
                 self._handle_solenoid_cmd(self.sv2, action, data)
+            elif mod_name == 'Servo1':
+                self._handle_servo_cmd(self.servo, action, data)
         except Exception as e:
             self.get_logger().error(f'module_cmd 解析エラー: {e}')
 
@@ -180,14 +190,30 @@ class CanNode(Node):
         elif action == 'set_tx':
             m['tx_enabled'] = bool(data.get('enabled', True))
 
+    def _handle_servo_cmd(self, m: dict, action: str, data: dict):
+        """Servo向けコマンド処理"""
+        if action == 'set_target':
+            targets = data.get('targets', [])
+            for i, t in enumerate(targets[:6]):
+                m['ch'][i] = max(0, min(180, int(t)))
+        elif action == 'set_tx':
+            m['tx_enabled'] = bool(data.get('enabled', True))
+
     # ─────────────────────────────────────────────────
     # 送信タイマー
     # ─────────────────────────────────────────────────
 
     def _timer_10ms(self):
-        """100Hz: MDD送信ループ"""
+        """100Hz: MDD/Servo送信ループ"""
         if not self.is_connected:
             return
+
+        # Servo送信
+        m_srv = self.servo
+        if m_srv['tx_enabled']:
+            self._send_servo(m_srv)
+
+        # MDD送信
         m = self.mdd1
         if not m['tx_enabled']:
             return
@@ -260,6 +286,11 @@ class CanNode(Node):
         """Solenoid: バルブ状態送信"""
         v = m['valves']
         payload = [v & 0xFF, (v >> 8) & 0xFF]
+        self._send_can_frame(m['base_id'], payload)
+
+    def _send_servo(self, m: dict):
+        """Servo: サーボ目標角度送信"""
+        payload = [max(0, min(180, int(ch))) for ch in m['ch']]
         self._send_can_frame(m['base_id'], payload)
 
     def _read_loop(self):
@@ -476,6 +507,11 @@ class CanNode(Node):
                     'base_id': self.sv2['base_id'],
                     'tx_enabled': self.sv2['tx_enabled'],
                     'valves': self.sv2['valves'],
+                },
+                'Servo1': {
+                    'base_id': self.servo['base_id'],
+                    'tx_enabled': self.servo['tx_enabled'],
+                    'ch': self.servo['ch'],
                 },
             },
             'timestamp': time.time(),
