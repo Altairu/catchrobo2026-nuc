@@ -148,7 +148,6 @@ class CanNode(Node):
             data = json.loads(msg.data)
             mod_name = data.get('name', '')
             action = data.get('action', '')
-            self.get_logger().info(f'module_cmd 受信: name={mod_name}, action={action}, data={data}')
 
             if mod_name == 'MDD1':
                 self._handle_mdd_cmd(self.mdd1, action, data)

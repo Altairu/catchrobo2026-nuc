@@ -95,14 +95,12 @@ class SerialMotorNode(Node):
         vals = list(msg.data)
         for i in range(min(6, len(vals))):
             self.motor_targets[i] = int(vals[i] * 10)
-        self.get_logger().info(f'motor_cmd 受信: targets={self.motor_targets}')
 
     def _on_motor_mode(self, msg: String):
         """PCからのモーター制御モードを受信する"""
         try:
             data = json.loads(msg.data)
             self.control_mode = int(data.get('mode', 0))
-            self.get_logger().info(f'motor_mode 受信: control_mode={self.control_mode}')
         except Exception as e:
             self.get_logger().error(f'motor_mode 解析エラー: {e}')
 
