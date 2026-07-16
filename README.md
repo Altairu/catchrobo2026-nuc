@@ -37,11 +37,12 @@ catchrobo2026-nuc/
 
 **対象モジュール:**
 
-| 名前 | 種類                      | Base CAN ID   |
-| ---- | ------------------------- | ------------- |
-| MDD1 | Motor Driver Driver (4ch) | `0x200` (512) |
-| SV_1 | Solenoid Valve (12ch)     | `0x300` (768) |
-| SV_2 | Solenoid Valve (12ch)     | `0x301` (769) |
+| 名前   | 種類                      | Base CAN ID   |
+| ------ | ------------------------- | ------------- |
+| MDD1   | Motor Driver Driver (4ch) | `0x200` (512) |
+| SV_1   | Solenoid Valve (12ch)     | `0x300` (768) |
+| SV_2   | Solenoid Valve (12ch)     | `0x301` (769) |
+| Servo1 | Servo Motor (6ch)         | `0x100` (256) |
 
 **CAN フレーム仕様 (MDD1 / BaseID=0x200):**
 
@@ -114,7 +115,7 @@ catchrobo2026-nuc/
 
 | トピック                | 型                  | 送信元 | 内容                                      |
 | ----------------------- | ------------------- | ------ | ----------------------------------------- |
-| `/catchrobo/motor_cmd`  | `Float32MultiArray` | PC     | 5軸目標値 [RM1..SM1] (degree)             |
+| `/catchrobo/motor_cmd`  | `Float32MultiArray` | PC     | 6軸目標値 [RM1..LM3] (degree)             |
 | `/catchrobo/motor_mode` | `String` (JSON)     | PC     | 制御モード `{"mode": 0}`                  |
 | `/catchrobo/module_cmd` | `String` (JSON)     | PC     | MDD/Solenoid 操作コマンド                 |
 | `/catchrobo/set_ports`  | `String` (JSON)     | PC     | `{"can_port":"...", "serial_port":"..."}` |
@@ -123,7 +124,7 @@ catchrobo2026-nuc/
 
 | トピック                     | 型                  | 受信先      | 内容                       |
 | ---------------------------- | ------------------- | ----------- | -------------------------- |
-| `/catchrobo/motor_fb`        | `Float32MultiArray` | PC          | 角度×5 + RPM×2             |
+| `/catchrobo/motor_fb`        | `Float32MultiArray` | PC          | 角度×6 + RPM×2             |
 | `/catchrobo/can_status`      | `String` (JSON)     | PC/デバッグ | CANノード状態・統計        |
 | `/catchrobo/serial_status`   | `String` (JSON)     | PC/デバッグ | シリアルノード状態・統計   |
 | `/catchrobo/available_ports` | `String` (JSON)     | PC          | 利用可能シリアルポート一覧 |
