@@ -397,10 +397,8 @@ class CanNode(Node):
 
         判定方法:
           1. ポートを115200bpsで開く
-          2. 'C\\r' (チャンネルクローズ) を送って既存状態をリセット
-          3. 'S8\\r' (1Mbps設定) を送る
-          4. 'O\\r' (チャンネルオープン) を送って応答を確認
-          5. 応答バイトが存在すればslcanデバイスと判定
+          2. 'V\r' (ファームウェアバージョン取得) を送る
+          3. 応答に 'canable' や 'github.com' などが含まれていればslcanデバイスと判定
         """
         import glob
         candidates = sorted(glob.glob('/dev/ttyACM*'))
@@ -416,25 +414,20 @@ class CanNode(Node):
             try:
                 s = serial.Serial(port, 115200, timeout=0.3)
                 s.reset_input_buffer()
-                # リセット
-                s.write(b'C\r')
-                time.sleep(0.1)
-                s.reset_input_buffer()
-                # ボーレート設定
-                s.write(b'S8\r')
-                time.sleep(0.1)
-                # オープンして応答を確認
-                s.write(b'O\r')
+                # ファームウェアバージョン要求
+                s.write(b'V\r')
                 time.sleep(0.15)
                 resp = s.read(s.in_waiting or 1)
                 s.close()
-                if resp:  # 何らかの応答があればslcanデバイスとみなす
+                
+                resp_str = resp.decode('ascii', errors='ignore').lower()
+                if 'canable' in resp_str or 'slcan' in resp_str or 'github.com' in resp_str:
                     self.get_logger().info(
                         f'slcanデバイス検出: {port} (応答={resp!r})')
                     return port
                 else:
                     self.get_logger().info(
-                        f'{port} は応答なし (マイコン側シリアルと判定)')
+                        f'{port} は非slcanデバイスと判定 (応答={resp!r})')
             except Exception as e:
                 self.get_logger().warn(f'{port} スキャン失敗: {e}')
         return ''
