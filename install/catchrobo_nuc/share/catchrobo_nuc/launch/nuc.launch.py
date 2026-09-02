@@ -6,6 +6,7 @@ NUC側の全ノードを起動するランチファイル
   - can_node         : USB-CAN変換器経由でモジュール回路と通信 (slcan直接方式)
   - serial_motor_node: マイコンとシリアル通信でロボマスモーターを制御
   - debug_node       : デバッグ・監視用ノード
+  - camera_node      : USBカメラ / RealSense モニター表示ノード
 """
 
 from launch import LaunchDescription
@@ -35,6 +36,13 @@ def generate_launch_description():
             package='catchrobo_nuc',
             executable='serial_motor_node',
             name='serial_motor_node',
+            output='screen',
+            emulate_tty=True,
+        ),
+        Node(
+            package='catchrobo_nuc',
+            executable='camera_node',
+            name='camera_node',
             output='screen',
             emulate_tty=True,
         ),

@@ -9,6 +9,7 @@ setup.py
 ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/top_level.txt
 ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/zip-safe
 catchrobo_nuc/__init__.py
+catchrobo_nuc/camera_node.py
 catchrobo_nuc/can_node.py
 catchrobo_nuc/debug_node.py
 catchrobo_nuc/serial_motor_node.py

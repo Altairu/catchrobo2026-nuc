@@ -24,6 +24,7 @@ setup(
             'can_node = catchrobo_nuc.can_node:main',
             'serial_motor_node = catchrobo_nuc.serial_motor_node:main',
             'debug_node = catchrobo_nuc.debug_node:main',
+            'camera_node = catchrobo_nuc.camera_node:main',
         ],
     },
 )
