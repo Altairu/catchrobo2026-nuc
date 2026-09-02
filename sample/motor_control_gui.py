@@ -25,8 +25,8 @@ class MotorControlApp:
 
         # モーター設定（名前: range, step）
         self.motors = {
-            "RM1": {"range": (-20.0, 70.0),  "step": 0.5, "val": tk.DoubleVar(value=0.0)},
-            "RM2": {"range": (-15.0, 90.0),  "step": 0.5, "val": tk.DoubleVar(value=0.0)},
+            "RM1": {"range": (-20.0, 90.0),  "step": 0.5, "val": tk.DoubleVar(value=0.0)},
+            "RM2": {"range": (-20.0, 110.0),  "step": 0.5, "val": tk.DoubleVar(value=0.0)},
             "LM1": {"range": (-20.0, 30.0),  "step": 0.5, "val": tk.DoubleVar(value=0.0)},
             "LM2": {"range": (-10.0, 20.0),  "step": 0.5, "val": tk.DoubleVar(value=0.0)},
             "SM1": {"range": (-90.0, 90.0),  "step": 1.0, "val": tk.DoubleVar(value=0.0)},
