@@ -1,0 +1,21 @@
+[1.531s] Invoking command in '/home/altair/catchrobo2026-nuc/build/catchrobo_nuc': PYTHONPATH=/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build --no-deps symlink_data
+[1.953s] running develop
+[2.212s] running egg_info
+[2.231s] writing catchrobo_nuc.egg-info/PKG-INFO
+[2.232s] writing dependency_links to catchrobo_nuc.egg-info/dependency_links.txt
+[2.232s] writing entry points to catchrobo_nuc.egg-info/entry_points.txt
+[2.232s] writing requirements to catchrobo_nuc.egg-info/requires.txt
+[2.233s] writing top-level names to catchrobo_nuc.egg-info/top_level.txt
+[2.273s] reading manifest file 'catchrobo_nuc.egg-info/SOURCES.txt'
+[2.275s] writing manifest file 'catchrobo_nuc.egg-info/SOURCES.txt'
+[2.296s] running build_ext
+[2.296s] Creating /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo-nuc.egg-link (link to .)
+[2.296s] Installing camera_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc
+[2.297s] Installing can_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc
+[2.297s] Installing debug_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc
+[2.297s] Installing serial_motor_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc
+[2.297s] Installing sound_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc
+[2.297s] 
+[2.298s] Installed /home/altair/catchrobo2026-nuc/build/catchrobo_nuc
+[2.298s] running symlink_data
+[2.381s] Invoked command in '/home/altair/catchrobo2026-nuc/build/catchrobo_nuc' returned '0': PYTHONPATH=/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build --no-deps symlink_data

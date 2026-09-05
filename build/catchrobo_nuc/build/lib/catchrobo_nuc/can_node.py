@@ -56,6 +56,7 @@ class CanNode(Node):
                 'enc_deg': [0.0, 0.0, 0.0, 0.0],
                 'enc_rps': [0.0, 0.0, 0.0, 0.0],
                 'last_update': 0.0,
+                'enc_last_update': 0.0,
             },
         }
 
@@ -358,6 +359,7 @@ class CanNode(Node):
                 if raw >= 0x8000:
                     raw -= 0x10000
                 m['state']['enc_deg'][i] = raw / 10.0
+            m['state']['enc_last_update'] = time.time()
 
         elif can_id == base + 0x50 and len(data) >= 8:
             # エンコーダ角速度受信
@@ -490,6 +492,7 @@ class CanNode(Node):
                     'enc_deg': m['state']['enc_deg'],
                     'enc_rps': m['state']['enc_rps'],
                     'last_update': m['state']['last_update'],
+                    'enc_last_update': m['state'].get('enc_last_update', 0.0),
                 },
                 'SV_1': {
                     'base_id': self.sv1['base_id'],

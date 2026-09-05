@@ -1,0 +1,64 @@
+[1.072s] Invoking command in '/home/altair/catchrobo2026-nuc/build/catchrobo_nuc': PYTHONPATH=/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --uninstall --editable --build-directory /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build
+[1.503s] running develop
+[1.765s] Removing /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo-nuc.egg-link (link to .)
+[1.848s] Invoked command in '/home/altair/catchrobo2026-nuc/build/catchrobo_nuc' returned '0': PYTHONPATH=/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --uninstall --editable --build-directory /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build
+[1.849s] Invoking command in '/home/altair/catchrobo2026-nuc/src/catchrobo_nuc': PYTHONPATH=/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/catchrobo_nuc build --build-base /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build install --record /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/install.log --install-scripts $base/lib/catchrobo_nuc --single-version-externally-managed install_data --force
+[2.231s] running egg_info
+[2.253s] writing ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/PKG-INFO
+[2.253s] writing dependency_links to ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/dependency_links.txt
+[2.253s] writing entry points to ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/entry_points.txt
+[2.253s] writing requirements to ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/requires.txt
+[2.253s] writing top-level names to ../../build/catchrobo_nuc/catchrobo_nuc.egg-info/top_level.txt
+[2.299s] reading manifest file '../../build/catchrobo_nuc/catchrobo_nuc.egg-info/SOURCES.txt'
+[2.300s] writing manifest file '../../build/catchrobo_nuc/catchrobo_nuc.egg-info/SOURCES.txt'
+[2.300s] running build
+[2.300s] running build_py
+[2.301s] copying catchrobo_nuc/serial_motor_node.py -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc
+[2.301s] copying catchrobo_nuc/can_node.py -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc
+[2.301s] copying catchrobo_nuc/camera_node.py -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc
+[2.301s] copying catchrobo_nuc/sound_node.py -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc
+[2.301s] copying catchrobo_nuc/debug_node.py -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc
+[2.302s] copying catchrobo_nuc/__init__.py -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc
+[2.302s] creating /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/voice
+[2.302s] copying catchrobo_nuc/voice/mei_normal.htsvoice -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/voice
+[2.303s] copying catchrobo_nuc/voice/mei_bashful.htsvoice -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/voice
+[2.304s] copying catchrobo_nuc/voice/mei_sad.htsvoice -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/voice
+[2.306s] copying catchrobo_nuc/voice/mei_happy.htsvoice -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/voice
+[2.307s] copying catchrobo_nuc/voice/mei_angry.htsvoice -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/voice
+[2.308s] copying catchrobo_nuc/voice/tohoku-f01-neutral.htsvoice -> /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/voice
+[2.311s] running install
+[2.315s] running install_lib
+[2.337s] creating /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc
+[2.337s] copying /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/serial_motor_node.py -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc
+[2.337s] creating /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc/voice
+[2.337s] copying /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/voice/mei_normal.htsvoice -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc/voice
+[2.338s] copying /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/voice/mei_bashful.htsvoice -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc/voice
+[2.339s] copying /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/voice/mei_sad.htsvoice -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc/voice
+[2.340s] copying /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/voice/mei_happy.htsvoice -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc/voice
+[2.341s] copying /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/voice/mei_angry.htsvoice -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc/voice
+[2.343s] copying /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/voice/tohoku-f01-neutral.htsvoice -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc/voice
+[2.345s] copying /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/can_node.py -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc
+[2.345s] copying /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/camera_node.py -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc
+[2.346s] copying /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/sound_node.py -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc
+[2.346s] copying /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/debug_node.py -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc
+[2.346s] copying /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build/lib/catchrobo_nuc/__init__.py -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc
+[2.346s] byte-compiling /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc/serial_motor_node.py to serial_motor_node.cpython-310.pyc
+[2.349s] byte-compiling /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc/can_node.py to can_node.cpython-310.pyc
+[2.352s] byte-compiling /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc/camera_node.py to camera_node.cpython-310.pyc
+[2.353s] byte-compiling /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc/sound_node.py to sound_node.cpython-310.pyc
+[2.354s] byte-compiling /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc/debug_node.py to debug_node.cpython-310.pyc
+[2.356s] byte-compiling /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc/__init__.py to __init__.cpython-310.pyc
+[2.356s] running install_data
+[2.356s] copying resource/catchrobo_nuc -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/ament_index/resource_index/packages
+[2.356s] copying package.xml -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/catchrobo_nuc
+[2.357s] copying launch/nuc.launch.py -> /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/catchrobo_nuc/launch
+[2.357s] running install_egg_info
+[2.379s] Copying ../../build/catchrobo_nuc/catchrobo_nuc.egg-info to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo_nuc-0.1.0-py3.10.egg-info
+[2.380s] running install_scripts
+[2.562s] Installing camera_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc
+[2.563s] Installing can_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc
+[2.563s] Installing debug_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc
+[2.563s] Installing serial_motor_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc
+[2.563s] Installing sound_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc
+[2.564s] writing list of installed files to '/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/install.log'
+[2.641s] Invoked command in '/home/altair/catchrobo2026-nuc/src/catchrobo_nuc' returned '0': PYTHONPATH=/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/catchrobo_nuc build --build-base /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build install --record /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/install.log --install-scripts $base/lib/catchrobo_nuc --single-version-externally-managed install_data --force
