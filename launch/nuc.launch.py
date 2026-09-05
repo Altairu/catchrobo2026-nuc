@@ -19,6 +19,12 @@ def generate_launch_description():
         ),
         Node(
             package='catchrobo_nuc',
+            executable='sound_node',
+            name='sound_node',
+            output='screen',
+        ),
+        Node(
+            package='catchrobo_nuc',
             executable='debug_node',
             name='debug_node',
             output='screen',

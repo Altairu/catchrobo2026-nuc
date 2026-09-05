@@ -46,6 +46,17 @@ def generate_launch_description():
             output='screen',
             emulate_tty=True,
         ),
+        Node(
+            package='catchrobo_nuc',
+            executable='sound_node',
+            name='sound_node',
+            output='screen',
+            emulate_tty=True,
+            parameters=[{
+                'audio_device': 'default',
+                'speech_speed': 1.05,
+            }],
+        ),
         # デバッグモニターを WezTerm の新タブで起動
         ExecuteProcess(
             cmd=['wezterm', 'cli', 'spawn', '--', 'bash', '-c', _DEBUG_CMD],

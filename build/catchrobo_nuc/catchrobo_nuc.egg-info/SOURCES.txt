@@ -13,5 +13,14 @@ catchrobo_nuc/camera_node.py
 catchrobo_nuc/can_node.py
 catchrobo_nuc/debug_node.py
 catchrobo_nuc/serial_motor_node.py
+catchrobo_nuc/sound_node.py
+catchrobo_nuc.egg-info/PKG-INFO
+catchrobo_nuc.egg-info/SOURCES.txt
+catchrobo_nuc.egg-info/dependency_links.txt
+catchrobo_nuc.egg-info/entry_points.txt
+catchrobo_nuc.egg-info/requires.txt
+catchrobo_nuc.egg-info/top_level.txt
+catchrobo_nuc.egg-info/zip-safe
+catchrobo_nuc/voice/mei_normal.htsvoice
 launch/nuc.launch.py
 resource/catchrobo_nuc

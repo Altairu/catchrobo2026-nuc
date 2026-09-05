@@ -14,6 +14,9 @@ setup(
         ('share/' + package_name + '/launch', glob('launch/*.py')),
     ],
     install_requires=['setuptools'],
+    package_data={
+        package_name: ['voice/*.htsvoice'],
+    },
     zip_safe=True,
     maintainer='Altair',
     maintainer_email='altair@example.com',
@@ -25,6 +28,7 @@ setup(
             'serial_motor_node = catchrobo_nuc.serial_motor_node:main',
             'debug_node = catchrobo_nuc.debug_node:main',
             'camera_node = catchrobo_nuc.camera_node:main',
+            'sound_node = catchrobo_nuc.sound_node:main',
         ],
     },
 )

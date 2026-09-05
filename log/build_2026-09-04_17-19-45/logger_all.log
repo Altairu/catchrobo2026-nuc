@@ -1,0 +1,160 @@
+[0.106s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--packages-select', 'catchrobo_nuc', '--symlink-install']
+[0.107s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=True, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=16, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=['catchrobo_nuc'], packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x73df7a125480>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x73df7a124640>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x73df7a124640>>)
+[0.140s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.140s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.140s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.140s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.141s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.141s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.141s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/altair/catchrobo2026-nuc'
+[0.141s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.141s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.141s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.141s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.141s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.141s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.141s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.141s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.141s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.169s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.169s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.169s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.169s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.169s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.169s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.169s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.169s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.169s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.169s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.169s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.169s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extensions ['ignore', 'ignore_ament_install']
+[0.169s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extension 'ignore'
+[0.169s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extension 'ignore_ament_install'
+[0.169s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extensions ['colcon_pkg']
+[0.169s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extension 'colcon_pkg'
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extensions ['colcon_meta']
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extension 'colcon_meta'
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extensions ['ros']
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extension 'ros'
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extensions ['cmake', 'python']
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extension 'cmake'
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extension 'python'
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extensions ['python_setup_py']
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extension 'python_setup_py'
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(sample) by extensions ['ignore', 'ignore_ament_install']
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(sample) by extension 'ignore'
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(sample) by extension 'ignore_ament_install'
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(sample) by extensions ['colcon_pkg']
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(sample) by extension 'colcon_pkg'
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(sample) by extensions ['colcon_meta']
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(sample) by extension 'colcon_meta'
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(sample) by extensions ['ros']
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(sample) by extension 'ros'
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(sample) by extensions ['cmake', 'python']
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(sample) by extension 'cmake'
+[0.170s] Level 1:colcon.colcon_core.package_identification:_identify(sample) by extension 'python'
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(sample) by extensions ['python_setup_py']
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(sample) by extension 'python_setup_py'
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src/catchrobo_nuc) by extensions ['ignore', 'ignore_ament_install']
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src/catchrobo_nuc) by extension 'ignore'
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src/catchrobo_nuc) by extension 'ignore_ament_install'
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src/catchrobo_nuc) by extensions ['colcon_pkg']
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src/catchrobo_nuc) by extension 'colcon_pkg'
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src/catchrobo_nuc) by extensions ['colcon_meta']
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src/catchrobo_nuc) by extension 'colcon_meta'
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src/catchrobo_nuc) by extensions ['ros']
+[0.171s] Level 1:colcon.colcon_core.package_identification:_identify(src/catchrobo_nuc) by extension 'ros'
+[0.174s] DEBUG:colcon.colcon_core.package_identification:Package 'src/catchrobo_nuc' with type 'ros.ament_python' and name 'catchrobo_nuc'
+[0.174s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.174s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.174s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.174s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.174s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.192s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.192s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.195s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 287 installed packages in /opt/ros/humble
+[0.196s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'catchrobo_nuc' build argument 'cmake_args' from command line to 'None'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'catchrobo_nuc' build argument 'cmake_target' from command line to 'None'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'catchrobo_nuc' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'catchrobo_nuc' build argument 'cmake_clean_cache' from command line to 'False'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'catchrobo_nuc' build argument 'cmake_clean_first' from command line to 'False'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'catchrobo_nuc' build argument 'cmake_force_configure' from command line to 'False'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'catchrobo_nuc' build argument 'ament_cmake_args' from command line to 'None'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'catchrobo_nuc' build argument 'catkin_cmake_args' from command line to 'None'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'catchrobo_nuc' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.228s] DEBUG:colcon.colcon_core.verb:Building package 'catchrobo_nuc' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/altair/catchrobo2026-nuc/build/catchrobo_nuc', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc', 'merge_install': False, 'path': '/home/altair/catchrobo2026-nuc/src/catchrobo_nuc', 'symlink_install': True, 'test_result_base': None}
+[0.228s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.229s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.229s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/altair/catchrobo2026-nuc/src/catchrobo_nuc' with build type 'ament_python'
+[0.229s] Level 1:colcon.colcon_core.shell:create_environment_hook('catchrobo_nuc', 'ament_prefix_path')
+[0.232s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.232s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/catchrobo_nuc/hook/ament_prefix_path.ps1'
+[0.232s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/catchrobo_nuc/hook/ament_prefix_path.dsv'
+[0.233s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/catchrobo_nuc/hook/ament_prefix_path.sh'
+[0.233s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.233s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.577s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/altair/catchrobo2026-nuc/src/catchrobo_nuc'
+[0.577s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.577s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.272s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools commands: easy_install, bdist_apps, build, bdist_egg, build_ext, init_catalog, build_py, egg_info, rotate, saveopts, symlink_data, develop, bdist, dist_info, sdist, build_apps, editable_wheel, bdist_wheel, compile_catalog, bdist_dumb, bdist_rpm, install_headers, nosetests, install_lib, build_scripts, check, install, alias, extract_messages, install_data, install_scripts, setopt, install_egg_info, clean, update_catalog, build_clib
+[1.763s] DEBUG:colcon.colcon_core.task.python.build:Available setuptools 'develop' options: --find-links, --no-deps, --multi-version, --allow-hosts, --version, --user, --prefix, --optimize, --editable, --no-find-links, --no-user-cfg, --exclude-scripts, --record, --egg-path, --zip-ok, --script-dir, --build-directory, --local-snapshots-ok, --upgrade, --verbose, --quiet, --site-dirs, --dry-run, --always-copy, --help, --uninstall, --always-unzip, --index-url, --install-dir
+[1.768s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/altair/catchrobo2026-nuc/build/catchrobo_nuc': PYTHONPATH=/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build --no-deps symlink_data
+[2.627s] Level 1:colcon.colcon_core.shell:create_environment_hook('catchrobo_nuc', 'pythonpath_develop')
+[2.628s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/share/catchrobo_nuc/hook/pythonpath_develop.ps1'
+[2.629s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/altair/catchrobo2026-nuc/build/catchrobo_nuc' returned '0': PYTHONPATH=/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/altair/catchrobo2026-nuc/build/catchrobo_nuc/build --no-deps symlink_data
+[2.629s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/share/catchrobo_nuc/hook/pythonpath_develop.dsv'
+[2.630s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/altair/catchrobo2026-nuc/build/catchrobo_nuc/share/catchrobo_nuc/hook/pythonpath_develop.sh'
+[2.632s] Level 1:colcon.colcon_core.environment:checking '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc' for CMake module files
+[2.632s] Level 1:colcon.colcon_core.environment:checking '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc' for CMake config files
+[2.633s] Level 1:colcon.colcon_core.environment:checking '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib'
+[2.633s] Level 1:colcon.colcon_core.environment:checking '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/bin'
+[2.633s] Level 1:colcon.colcon_core.environment:checking '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/pkgconfig/catchrobo_nuc.pc'
+[2.633s] Level 1:colcon.colcon_core.environment:checking '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages'
+[2.633s] Level 1:colcon.colcon_core.shell:create_environment_hook('catchrobo_nuc', 'pythonpath')
+[2.633s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/catchrobo_nuc/hook/pythonpath.ps1'
+[2.634s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/catchrobo_nuc/hook/pythonpath.dsv'
+[2.634s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/catchrobo_nuc/hook/pythonpath.sh'
+[2.634s] Level 1:colcon.colcon_core.environment:checking '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/bin'
+[2.634s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(catchrobo_nuc)
+[2.635s] INFO:colcon.colcon_core.shell:Creating package script '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/catchrobo_nuc/package.ps1'
+[2.636s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/catchrobo_nuc/package.dsv'
+[2.636s] INFO:colcon.colcon_core.shell:Creating package script '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/catchrobo_nuc/package.sh'
+[2.637s] INFO:colcon.colcon_core.shell:Creating package script '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/catchrobo_nuc/package.bash'
+[2.638s] INFO:colcon.colcon_core.shell:Creating package script '/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/catchrobo_nuc/package.zsh'
+[2.638s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/altair/catchrobo2026-nuc/install/catchrobo_nuc/share/colcon-core/packages/catchrobo_nuc)
+[2.639s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[2.639s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[2.639s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[2.639s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[2.644s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[2.645s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[2.645s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[2.654s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[2.655s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/altair/catchrobo2026-nuc/install/local_setup.ps1'
+[2.655s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/altair/catchrobo2026-nuc/install/_local_setup_util_ps1.py'
+[2.656s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/altair/catchrobo2026-nuc/install/setup.ps1'
+[2.657s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/altair/catchrobo2026-nuc/install/local_setup.sh'
+[2.658s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/altair/catchrobo2026-nuc/install/_local_setup_util_sh.py'
+[2.659s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/altair/catchrobo2026-nuc/install/setup.sh'
+[2.660s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/altair/catchrobo2026-nuc/install/local_setup.bash'
+[2.661s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/altair/catchrobo2026-nuc/install/setup.bash'
+[2.662s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/altair/catchrobo2026-nuc/install/local_setup.zsh'
+[2.663s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/altair/catchrobo2026-nuc/install/setup.zsh'
