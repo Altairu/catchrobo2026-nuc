@@ -21,6 +21,7 @@ import os
 import json
 import time
 import shutil
+import random
 from pathlib import Path
 
 
@@ -35,13 +36,19 @@ class SoundNode(Node):
         self.declare_parameter('voice_model', '/usr/share/hts-voice/nitech-jp-atr503-m001/nitech_jp_atr503_m001.htsvoice')
         self.declare_parameter('dic_dir', '/var/lib/mecab/dic/open-jtalk/naist-jdic')
         self.declare_parameter('speech_speed', 5.0)  # 話速 (1.0 = 標準)
-        self.declare_parameter('enc_timeout', 1.5)    # エンコーダ途絶判定時間 (秒)
+        self.declare_parameter('enc_timeout', 2.0)    # エンコーダ途絶判定時間 (秒)
+        self.declare_parameter('idle_chatter_enabled', True)   # アイドル時の雑談発話
+        self.declare_parameter('idle_interval_min', 45.0)      # 雑談インターバル最小 (秒)
+        self.declare_parameter('idle_interval_max', 75.0)      # 雑談インターバル最大 (秒)
 
         self.audio_device = self.get_parameter('audio_device').get_parameter_value().string_value
         self.voice_model = self.get_parameter('voice_model').get_parameter_value().string_value
         self.dic_dir = self.get_parameter('dic_dir').get_parameter_value().string_value
         self.speech_speed = self.get_parameter('speech_speed').get_parameter_value().double_value
         self.enc_timeout = self.get_parameter('enc_timeout').get_parameter_value().double_value
+        self.idle_chatter_enabled = self.get_parameter('idle_chatter_enabled').get_parameter_value().bool_value
+        self.idle_interval_min = self.get_parameter('idle_interval_min').get_parameter_value().double_value
+        self.idle_interval_max = self.get_parameter('idle_interval_max').get_parameter_value().double_value
 
         # 音声モデルの自動検索・適用 (東北大学 tohoku-f01 を最優先)
         voice_candidates = [
@@ -77,8 +84,23 @@ class SoundNode(Node):
         self.create_subscription(String, '/catchrobo/serial_status', self._on_serial_status, 10)
         self.create_subscription(String, '/catchrobo/motor_mode', self._on_motor_mode, 10)
 
+        # ─── アイドル雑談アナウンス (起動1分後から約1分に1回) ───
+        self.idle_phrases = [
+            'お菓子見てたらお腹すいてきたわ〜',
+            '腕が筋肉痛なるー',
+            'あのお菓子、めっちゃ美味しそうやん！',
+            'どのお菓子から狙おか迷うわ〜',
+            '今日もええ調子で動いとるで！',
+            '誰かおやつ分けてくれへんかなぁ',
+            'うちのモーター、まだまだ元気モリモリやで！',
+        ]
+        self.last_idle_phrase = None
+        # 起動から1分後(60秒)に最初の雑談を発話開始
+        self.next_idle_time = time.time() + 60.0
+        self.idle_timer = self.create_timer(1.0, self._on_idle_timer)
+
         # 起動アナウンス
-        self.speak('システムを起動しました。アームろう、いきまーす！')
+        self.speak('システム起動したで！アームろう、いきまーす！')
         self.get_logger().info(f'サウンドノード 起動完了 (Device: {self.audio_device})')
 
     def speak(self, text: str):
@@ -110,13 +132,13 @@ class SoundNode(Node):
             if self.last_can_connected is None:
                 self.last_can_connected = adapter_connected
                 if adapter_connected:
-                    self.speak('キャン変換器、接続完了')
+                    self.speak('キャン変換器、つながったでー！')
             elif adapter_connected != self.last_can_connected:
                 self.last_can_connected = adapter_connected
                 if adapter_connected:
-                    self.speak('キャン変換器を接続しました')
+                    self.speak('キャン変換器、接続したでー！')
                 else:
-                    self.speak('警告、キャン変換器が切断されました')
+                    self.speak('アカン！キャン変換器切れてもうたで！')
 
             # ── 2. 実機マイコン (MDD1) とのCAN通信状態 (エンコーダ受信判定) ──
             modules = data.get('modules', {})
@@ -129,18 +151,18 @@ class SoundNode(Node):
             if self.last_mcu_connected is None:
                 if mcu_connected:
                     self.last_mcu_connected = True
-                    self.speak('マイコンキャン通信、接続完了')
+                    self.speak('マイコンキャン通信、つながったで！')
                 elif adapter_connected and (now - self.state_init_time > 3.0):
                     self.last_mcu_connected = False
             else:
                 if mcu_connected != self.last_mcu_connected:
                     self.last_mcu_connected = mcu_connected
                     if mcu_connected:
-                        self.speak('マイコンキャン通信、接続完了')
+                        self.speak('マイコンキャン通信、つながったで！')
                     else:
                         # 変換器自体の切断と重複しないよう配慮
                         if adapter_connected:
-                            self.speak('警告、マイコンキャン通信が途絶しました')
+                            self.speak('アカン！マイコンキャン通信途絶えてもうたで！')
 
         except Exception as e:
             self.get_logger().error(f'CANステータス解析エラー: {e}')
@@ -154,15 +176,15 @@ class SoundNode(Node):
             if self.last_serial_connected is None:
                 self.last_serial_connected = connected
                 if connected:
-                    self.speak('ロボマスモーター通信、接続完了')
+                    self.speak('ロボマスモーター通信、つながったで！')
                 return
 
             if connected != self.last_serial_connected:
                 self.last_serial_connected = connected
                 if connected:
-                    self.speak('ロボマスモーター通信を接続しました')
+                    self.speak('ロボマスモーター通信、接続したで！')
                 else:
-                    self.speak('警告、ロボマスモーター通信が切断されました')
+                    self.speak('アカン！ロボマスモーター通信切れてもうたで！')
         except Exception as e:
             self.get_logger().error(f'シリアルステータス解析エラー: {e}')
 
@@ -194,16 +216,36 @@ class SoundNode(Node):
             return
 
         mode_text_map = {
-            '0': 'ロボマスモーター停止',
-            '1': 'ピーアイディー制御モード',
-            '2': 'オープンループモード',
-            'STOP': 'ロボマスモーター停止',
-            'PID': 'ピーアイディー制御モード',
-            'OPEN_LOOP': 'オープンループモード',
+            '0': 'ロボマスモーター停止やで！',
+            '1': 'ピーアイディー制御モードやで！',
+            '2': 'オープンループモードやで！',
+            'STOP': 'ロボマスモーター停止やで！',
+            'PID': 'ピーアイディー制御モードやで！',
+            'OPEN_LOOP': 'オープンループモードやで！',
         }
         speech_text = mode_text_map.get(mode_val)
         if speech_text:
             self.speak(speech_text)
+
+    def _on_idle_timer(self):
+        """アイドル時のランダム雑談アナウンス（約1分に1回）"""
+        if not self.idle_chatter_enabled or not self.idle_phrases:
+            return
+
+        now = time.time()
+        if now < self.next_idle_time:
+            return
+
+        # 直前と同じセリフが連続しないように選択
+        available = [p for p in self.idle_phrases if p != self.last_idle_phrase]
+        phrase = random.choice(available if available else self.idle_phrases)
+        self.last_idle_phrase = phrase
+
+        self.speak(phrase)
+
+        # 次回発話時刻を設定 (平均60秒、設定最小〜最大の範囲でランダム)
+        interval = random.uniform(self.idle_interval_min, self.idle_interval_max)
+        self.next_idle_time = now + interval
 
     # ─────────────────────────────────────────────────
     # 音声合成 & 再生ワーカー

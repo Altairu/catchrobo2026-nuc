@@ -1,0 +1,19 @@
+running develop
+running egg_info
+writing catchrobo_nuc.egg-info/PKG-INFO
+writing dependency_links to catchrobo_nuc.egg-info/dependency_links.txt
+writing entry points to catchrobo_nuc.egg-info/entry_points.txt
+writing requirements to catchrobo_nuc.egg-info/requires.txt
+writing top-level names to catchrobo_nuc.egg-info/top_level.txt
+reading manifest file 'catchrobo_nuc.egg-info/SOURCES.txt'
+writing manifest file 'catchrobo_nuc.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/python3.10/site-packages/catchrobo-nuc.egg-link (link to .)
+Installing camera_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc
+Installing can_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc
+Installing debug_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc
+Installing serial_motor_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc
+Installing sound_node script to /home/altair/catchrobo2026-nuc/install/catchrobo_nuc/lib/catchrobo_nuc
+
+Installed /home/altair/catchrobo2026-nuc/build/catchrobo_nuc
+running symlink_data
