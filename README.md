@@ -3,7 +3,7 @@
 Catchrobo 2026 NUC側 ROS2 ワークスペース。
 
 USB-CAN経由でモジュール回路（MDD/Solenoid）と通信し、シリアル経由でロボマスモーターを制御する。
-デバッグ表示ノードも含め、合計3つのノードで構成される。
+Open JTalkによる音声アナウンス・対話ノードやデバッグTUIノードを含め、合計4つのノードで構成される。
 
 ---
 
@@ -16,9 +16,11 @@ catchrobo2026-nuc/
 │       └── catchrobo_nuc/
 │           ├── can_node.py          # USB-CAN 通信ノード
 │           ├── serial_motor_node.py # ロボマスモーター シリアル通信ノード
+│           ├── sound_node.py        # 音声アナウンス・対話発話ノード (Open JTalk)
+│           ├── voice/               # 音声合成モデル (.htsvoice)
 │           └── debug_node.py        # curses 全画面デバッグTUI ノード
 ├── launch/
-│   └── nuc.launch.py           # 3ノード同時起動ファイル
+│   └── nuc.launch.py           # ノード同時起動ファイル
 └── sample/
     └── motor_control_gui.py    # ロボマスモーター 動作確認用サンプル (tkinter GUI)
 ```
@@ -96,7 +98,30 @@ catchrobo2026-nuc/
 
 ---
 
-### 3. `debug_node` — 全画面デバッグ TUI
+### 3. `sound_node` — 音声アナウンス & 音声対話ノード
+
+Open JTalk を用いたオフライン音声合成ノード。ロボットの状態変化アナウンスやPC側Gemini対話音声の再生を行う。
+
+| 項目       | 内容                                                              |
+| ---------- | ----------------------------------------------------------------- |
+| 合成方式   | Open JTalk (HTS Voice)                                            |
+| 再生方式   | PulseAudio (`paplay`) / ALSA (`aplay`)                            |
+| 音声モデル | 東北大学モデル (`tohoku-f01-neutral`) / Mei (`mei_normal`)        |
+| 話速       | 5.0 (標準〜高速アナウンス)                                        |
+
+**2つの動作モード:**
+
+| モード               | 動作概要                                                                                                  |
+| -------------------- | --------------------------------------------------------------------------------------------------------- |
+| **通常モード (`NORMAL`)** | CAN/シリアル接続・切断、制御モード変更の自動アナウンス ＋ 約1分ごとのランダム雑談アナウンス（関西弁）    |
+| **会話モード (`CHAT`)**   | PC側マイク対話優先モード。ランダム雑談タイマーを自動抑制し、`/catchrobo/speech_cmd` の返答音声を即時再生 |
+
+- `/catchrobo/sound_mode` を受信することで動的にモードを切り替え可能。
+- 重要警告（通信断など）はどのモードでも最優先で発話されます。
+
+---
+
+### 4. `debug_node` — 全画面デバッグ TUI
 
 - `curses` ライブラリによる全画面ターミナルUI
 - `q` キーで終了
@@ -113,33 +138,37 @@ catchrobo2026-nuc/
 
 ### Subscribe (受信)
 
-| トピック                | 型                  | 送信元 | 内容                                      |
-| ----------------------- | ------------------- | ------ | ----------------------------------------- |
-| `/catchrobo/motor_cmd`  | `Float32MultiArray` | PC     | 6軸目標値 [RM1..LM3] (degree)             |
-| `/catchrobo/motor_mode` | `String` (JSON)     | PC     | 制御モード `{"mode": 0}`                  |
-| `/catchrobo/module_cmd` | `String` (JSON)     | PC     | MDD/Solenoid 操作コマンド                 |
-| `/catchrobo/set_ports`  | `String` (JSON)     | PC     | `{"can_port":"...", "serial_port":"..."}` |
+| トピック                 | 型                  | 送信元 | 内容                                                |
+| ------------------------ | ------------------- | ------ | --------------------------------------------------- |
+| `/catchrobo/motor_cmd`   | `Float32MultiArray` | PC     | 6軸目標値 [RM1..LM3] (degree)                       |
+| `/catchrobo/motor_mode`  | `String` (JSON)     | PC     | 制御モード `{"mode": 0}`                            |
+| `/catchrobo/module_cmd`  | `String` (JSON)     | PC     | MDD/Solenoid 操作コマンド                           |
+| `/catchrobo/set_ports`   | `String` (JSON)     | PC     | `{"can_port":"...", "serial_port":"..."}`           |
+| `/catchrobo/speech_cmd`  | `String`            | PC/他  | 任意発話テキスト (Open JTalkで合成・再生)           |
+| `/catchrobo/sound_mode`  | `String`            | PC     | 音声モード切替 (`"NORMAL"` または `"CHAT"`)         |
 
 ### Publish (送信)
 
-| トピック                     | 型                  | 受信先      | 内容                       |
-| ---------------------------- | ------------------- | ----------- | -------------------------- |
-| `/catchrobo/motor_fb`        | `Float32MultiArray` | PC          | 角度×6 + RPM×2             |
-| `/catchrobo/can_status`      | `String` (JSON)     | PC/デバッグ | CANノード状態・統計        |
-| `/catchrobo/serial_status`   | `String` (JSON)     | PC/デバッグ | シリアルノード状態・統計   |
-| `/catchrobo/available_ports` | `String` (JSON)     | PC          | 利用可能シリアルポート一覧 |
+| トピック                     | 型                  | 受信先      | 内容                                           |
+| ---------------------------- | ------------------- | ----------- | ---------------------------------------------- |
+| `/catchrobo/motor_fb`        | `Float32MultiArray` | PC          | 角度×6 + RPM×2                                 |
+| `/catchrobo/can_status`      | `String` (JSON)     | PC/デバッグ | CANノード状態・統計                            |
+| `/catchrobo/serial_status`   | `String` (JSON)     | PC/デバッグ | シリアルノード状態・統計                       |
+| `/catchrobo/available_ports` | `String` (JSON)     | PC          | 利用可能シリアルポート一覧                     |
+| `/catchrobo/sound_status`    | `String` (JSON)     | PC          | サウンドノード状態・現在のモード (`mode` など) |
 
 ---
 
 ## 環境要件
 
-| 項目     | バージョン/内容                    |
-| -------- | ---------------------------------- |
-| OS       | Ubuntu 22.04                       |
-| ROS2     | Humble Hawksbill                   |
-| Python   | 3.10                               |
-| pyserial | `pip3 install pyserial`            |
-| WezTerm  | [インストール済み] (デバッグTUI用) |
+| 項目        | バージョン/内容                           |
+| ----------- | ----------------------------------------- |
+| OS          | Ubuntu 22.04                              |
+| ROS2        | Humble Hawksbill                          |
+| Python      | 3.10                                      |
+| pyserial    | `pip3 install pyserial`                   |
+| Open JTalk  | `sudo apt install open-jtalk open-jtalk-mecab-naist-jdic pulseaudio-utils` |
+| WezTerm     | [インストール済み] (デバッグTUI用)        |
 
 ---
 
@@ -173,7 +202,10 @@ ROS_DOMAIN_ID=0 ros2 run catchrobo_nuc can_node
 # ターミナル 2: シリアルモーターノード
 ROS_DOMAIN_ID=0 ros2 run catchrobo_nuc serial_motor_node
 
-# ターミナル 3: デバッグTUI
+# ターミナル 3: 音声アナウンス・対話発話ノード
+ROS_DOMAIN_ID=0 ros2 run catchrobo_nuc sound_node
+
+# ターミナル 4: デバッグTUI
 ROS_DOMAIN_ID=0 ros2 run catchrobo_nuc debug_node
 ```
 

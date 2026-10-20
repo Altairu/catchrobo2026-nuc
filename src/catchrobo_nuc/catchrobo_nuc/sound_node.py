@@ -78,8 +78,13 @@ class SoundNode(Node):
         self.worker_thread = threading.Thread(target=self._speech_worker, daemon=True)
         self.worker_thread.start()
 
+        # ─── 会話モード管理 ('NORMAL': 通常雑談あり, 'CHAT': PCマイク対話優先) ───
+        self.sound_mode = 'NORMAL'
+        self.pub_sound_status = self.create_publisher(String, '/catchrobo/sound_status', 10)
+
         # ─── サブスクライバー ──────────────────────────
         self.create_subscription(String, '/catchrobo/speech_cmd', self._on_speech_cmd, 10)
+        self.create_subscription(String, '/catchrobo/sound_mode', self._on_sound_mode, 10)
         self.create_subscription(String, '/catchrobo/can_status', self._on_can_status, 10)
         self.create_subscription(String, '/catchrobo/serial_status', self._on_serial_status, 10)
         self.create_subscription(String, '/catchrobo/motor_mode', self._on_motor_mode, 10)
@@ -99,8 +104,12 @@ class SoundNode(Node):
         self.next_idle_time = time.time() + 60.0
         self.idle_timer = self.create_timer(1.0, self._on_idle_timer)
 
+        # サウンド状態定期パブリッシュタイマー (2秒間隔)
+        self.status_timer = self.create_timer(2.0, self._publish_sound_status)
+
         # 起動アナウンス
         self.speak('システム起動したで！アームろう、いきまーす！')
+        self._publish_sound_status()
         self.get_logger().info(f'サウンドノード 起動完了 (Device: {self.audio_device})')
 
     def speak(self, text: str):
@@ -227,8 +236,62 @@ class SoundNode(Node):
         if speech_text:
             self.speak(speech_text)
 
+    def _on_sound_mode(self, msg: String):
+        """会話モード切り替えを受信 ('NORMAL' or 'CHAT')"""
+        try:
+            raw = msg.data.strip()
+            mode = raw
+            try:
+                parsed = json.loads(raw)
+                if isinstance(parsed, dict) and 'mode' in parsed:
+                    mode = str(parsed['mode']).upper()
+            except Exception:
+                mode = raw.upper()
+
+            if mode not in ('NORMAL', 'CHAT'):
+                self.get_logger().warn(f'未知のサウンドモードを受信: {raw}')
+                return
+
+            if mode == self.sound_mode:
+                return
+
+            prev_mode = self.sound_mode
+            self.sound_mode = mode
+            self.get_logger().info(f'サウンドモード切り替え: {prev_mode} -> {self.sound_mode}')
+
+            # モード切替のアナウンス
+            if self.sound_mode == 'CHAT':
+                self.speak('会話モードに切り替えたで！なんでも話しかけてな！')
+            else:
+                self.speak('通常モードに戻したで！')
+                self.next_idle_time = time.time() + 30.0
+
+            self._publish_sound_status()
+        except Exception as e:
+            self.get_logger().error(f'サウンドモード処理エラー: {e}')
+
+    def _publish_sound_status(self):
+        """現在のサウンドノードの状態をパブリッシュ"""
+        try:
+            status = {
+                'mode': self.sound_mode,
+                'queue_size': self.speech_queue.qsize(),
+                'idle_chatter_enabled': self.idle_chatter_enabled,
+                'device': self.audio_device,
+                'timestamp': time.time(),
+            }
+            msg = String()
+            msg.data = json.dumps(status)
+            self.pub_sound_status.publish(msg)
+        except Exception as e:
+            self.get_logger().error(f'サウンドステータスパブリッシュエラー: {e}')
+
     def _on_idle_timer(self):
-        """アイドル時のランダム雑談アナウンス（約1分に1回）"""
+        """アイドル時のランダム雑談アナウンス（約1分に1回、NORMALモード時のみ）"""
+        # 会話モード(CHAT)中はユーザーとの対話を優先し、ランダム雑談は停止
+        if self.sound_mode != 'NORMAL':
+            return
+
         if not self.idle_chatter_enabled or not self.idle_phrases:
             return
 
